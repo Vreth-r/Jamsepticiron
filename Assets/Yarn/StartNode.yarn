@@ -1,0 +1,18 @@
+﻿title: StartNode
+---
+<<ChangeFont "Game Manager" "death">>
+Death: Dude you died.
+Death: I know it's shit but like that's just how it goes man.
+Death: You free for like, a job? I bet lmao 'cause you're dead LMAOOOOO.
+Death: Go and sign that contract you fucking bum you're gonna be making minimum souls an hour.
+
+<<ChangeFont "Game Manager" "player">>
+Ylru (from the hit game project iron): ...
+Ylru (from the hit game project iron): ......
+Ylru (from the hit game project iron): ...What...?
+
+<<MoveCamera "Game Manager" "ContractView" 2>>
+<<Wait 2>>
+<<MoveCamera "Game Manager" "TableView" 2>>
+Ylru (from the hit game project iron): ...(I wonder if Gaap can solo this clown.)
+===
