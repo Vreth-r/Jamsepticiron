@@ -10,9 +10,9 @@ Death: Go and sign that contract you fucking bum you're gonna be making minimum 
 Ylru (from the hit game project iron): ...
 Ylru (from the hit game project iron): ......
 Ylru (from the hit game project iron): ...What...?
-
-<<MoveCamera "Game Manager" "ContractView" 2>>
-<<Wait 2>>
-<<MoveCamera "Game Manager" "TableView" 2>>
 Ylru (from the hit game project iron): ...(I wonder if Gaap can solo this clown.)
+Ylru (from the hit game project iron): ...(This fuckin goober is trying to employ me?)
+
+<<ChangeFont "Game Manager" "death">>
+Death: I can read your thoughts man.
 ===

@@ -26,6 +26,9 @@ public class GameManager : MonoBehaviour
     [Header("Object Hooks")]
     public Camera mainCam;
 
+    [Header("Script Hooks")]
+    public CameraController camScript;
+
     // Camera Movement vars
     private Queue<IEnumerator> camMoveQueue = new Queue<IEnumerator>();
     private bool isCamMoving = false;
@@ -49,35 +52,7 @@ public class GameManager : MonoBehaviour
     // I do it through this gateway method to keep the coroutine enumerator reference private.
     public void MoveTo(Vector3 targetPos, Vector3 targetRot, float duration)
     {
-        camMoveQueue.Enqueue(MoveRoutine(targetPos, targetRot, duration));
-    }
-
-    private IEnumerator MoveRoutine(Vector3 targetPos, Vector3 targetRot, float duration)
-    {
-        Vector3 startPos = mainCam.gameObject.transform.position;
-        Quaternion startRot = mainCam.gameObject.transform.rotation;
-
-        Quaternion endRot = Quaternion.Euler(targetRot);
-
-        float elapsed = 0f;
-
-        while (elapsed < duration)
-        {
-            elapsed += Time.deltaTime;
-            float t = Mathf.Clamp01(elapsed / duration);
-
-            // smooth step curve
-            float smoothT = t * t * (3f - 2f * t);
-
-            mainCam.gameObject.transform.position = Vector3.Lerp(startPos, targetPos, smoothT);
-            mainCam.gameObject.transform.rotation = Quaternion.Slerp(startRot, endRot, smoothT);
-
-            yield return null;
-        }
-
-        // ensure exact final values because fuck why would it just go to where i said to go
-        mainCam.gameObject.transform.position = targetPos;
-        mainCam.gameObject.transform.rotation = endRot;
+        camMoveQueue.Enqueue(camScript.MoveRoutine(targetPos, targetRot, duration));
     }
 
     private IEnumerator RunNext()
@@ -116,6 +91,8 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator WaitRoutine(float seconds)
     {
+        camScript.enableControl = false;
         yield return new WaitForSeconds(seconds);
+        camScript.enableControl = true;
     }
 }
