@@ -469,8 +469,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2297c3d8bedf044ca6c34c391277021, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  deathFont: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  playerFont: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  deathFont: {fileID: 11400000, guid: 569d38eef0e3eaf4da1e440967b7f0a2, type: 2}
+  playerFont: {fileID: 11400000, guid: d0c12569586b3cf49bb87f1e7932f933, type: 2}
   linePresenter: {fileID: 1795490159}
   dr: {fileID: 1795490158}
   cameraAnims: {fileID: 11400000, guid: b2c6e5a0cfc01d74780b1b83c5fb860e, type: 2}
