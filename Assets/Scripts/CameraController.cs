@@ -10,6 +10,7 @@ public class CameraController : MonoBehaviour
     public float mouseSensitivity = 100f;
     public float verticalClampMin = 20f; // max degrees up/down
     public float verticalClampMax = 0f;
+    public float viewSwitchThreshold = 27f;
 
     [Header("Idle Sway")]
     public float swayAmplitude = 1f;   // how far camera sways
@@ -34,8 +35,6 @@ public class CameraController : MonoBehaviour
         Cursor.visible = false;
 
         swayBasePos = transform.localPosition;
-
-        gameObject.transform.localRotation = Quaternion.Euler(10, 0, 0);
 
         // Enable input action if not already enabled
         if (lookAction != null)
@@ -68,7 +67,7 @@ public class CameraController : MonoBehaviour
         // Apply rotation (pitch only)
         transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
 
-        if (xRotation >= verticalClampMax - 1)
+        if (xRotation >= viewSwitchThreshold)
         {
             if (!hasTriggeredMaxClamp)
             {
@@ -86,6 +85,17 @@ public class CameraController : MonoBehaviour
                 onLeaveMaxClamp?.Invoke();
             }
         }
+    }
+
+    // for event calls
+    public void MoveToView()
+    {
+        GameManager.Instance.MoveCamera("TableView", 0.5f);
+    }
+
+    public void MoveToContract()
+    {
+        GameManager.Instance.MoveCamera("ContractView", 0.5f);
     }
 
     private void HandleIdleSway()
@@ -127,6 +137,8 @@ public class CameraController : MonoBehaviour
         swayBasePos = targetPos;
         gameObject.transform.position = targetPos;
         gameObject.transform.rotation = endRot;
+        xRotation = transform.localEulerAngles.x;
+        if (xRotation > 180f) xRotation -= 360f; // keep angle in -180..180 range for clamping
         enableControl = true;
     }
 }

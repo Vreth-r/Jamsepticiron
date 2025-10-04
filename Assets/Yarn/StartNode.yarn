@@ -3,6 +3,8 @@
 <<ChangeFont "Game Manager" "death">>
 Fill this out.
 
+<<CameraInput "Game Manager" true>>
+
 <<DialogueOption "Game Manager" "What is it?" "dwai" 0.5 5 -20 70 -30>>
 <<DialogueOption "Game Manager" "For... a job?" "anger" 2 8 30 70 -30>>
 ===

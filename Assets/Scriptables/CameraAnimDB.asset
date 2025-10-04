@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CameraAnimDB
   rawData:
   - id: TableView
-    targetCoords: {x: 12, y: 65, z: -96}
+    targetCoords: {x: 12, y: 75, z: -110}
     targetRotation: {x: 10, y: 0, z: 0}
   - id: ContractView
-    targetCoords: {x: 0, y: 45, z: -50}
-    targetRotation: {x: 60, y: 0, z: 0}
+    targetCoords: {x: 12, y: 60, z: -59}
+    targetRotation: {x: 80, y: 0, z: 0}

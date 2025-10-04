@@ -42,6 +42,7 @@ public class GameManager : MonoBehaviour
     {
         Instance = this;
         cameraAnims.Init();
+        camScript.enableControl = false;
     }
 
     void Update()
@@ -83,7 +84,7 @@ public class GameManager : MonoBehaviour
     }
 
     [YarnCommand("MoveCamera")]
-    public void MoveCamera(string animName, int duration)
+    public void MoveCamera(string animName, float duration)
     {
         MoveTo(cameraAnims.data[animName].targetCoords, cameraAnims.data[animName].targetRotation, duration);
     }
@@ -101,6 +102,12 @@ public class GameManager : MonoBehaviour
         var opt = Instantiate(dialogueOptionPrefab, spawnPos, Quaternion.identity, dialogueOptionParent);
         DialogueOption script = opt.GetComponent<DialogueOption>();
         script.Initialize(displayText, nextNode, delay, duration, dr);
+    }
+
+    [YarnCommand("CameraInput")]
+    public void CameraInput(bool value)
+    {
+        camScript.enableControl = value;
     }
 
     private IEnumerator WaitRoutine(float seconds)
