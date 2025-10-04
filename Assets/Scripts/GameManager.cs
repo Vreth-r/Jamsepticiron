@@ -25,9 +25,13 @@ public class GameManager : MonoBehaviour
 
     [Header("Object Hooks")]
     public Camera mainCam;
+    public GameObject dialogueOptionPrefab;
 
     [Header("Script Hooks")]
     public CameraController camScript;
+
+    [Header("Gloabls")]
+    public string playerName;
 
     // Camera Movement vars
     private Queue<IEnumerator> camMoveQueue = new Queue<IEnumerator>();

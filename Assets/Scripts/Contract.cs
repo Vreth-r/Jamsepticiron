@@ -1,6 +1,8 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
+using TMPro;
 
 public class Contract : MonoBehaviour
 {
@@ -13,7 +15,16 @@ public class Contract : MonoBehaviour
 
     private bool isMoving = false;
 
+    public TMP_InputField nameInput;
+    private bool isNameFilled = false;
+
     private Queue<IEnumerator> moveQueue = new Queue<IEnumerator>();
+
+    public void Awake()
+    {
+        Transform caret = (((gameObject.transform.Find("Canvas")).Find("NameInput")).Find("Text Area")).Find("Caret");
+        Destroy(caret.gameObject); // fuck this thing and its whole family.
+    }
 
     public void Update()
     {
@@ -33,14 +44,23 @@ public class Contract : MonoBehaviour
 
     public void MoveToView()
     {
-        Debug.Log("move to view");
+        if (!isNameFilled)
+        {
+            nameInput.Select();
+            nameInput.ActivateInputField();
+        }
         moveQueue.Enqueue(MoveRoutine(viewPos, viewRot, 1));
     }
 
     public void MoveToTable()
     {
-        Debug.Log("move to table");
         moveQueue.Enqueue(MoveRoutine(tablePos, tableRot, 1));
+    }
+
+    public void NameFilled()
+    {
+        GameManager.Instance.playerName = nameInput.text;
+        isNameFilled = true;
     }
 
     // i know im code duping just give me a damn minute here
