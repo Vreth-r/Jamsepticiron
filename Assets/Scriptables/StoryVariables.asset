@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87043981816ab47488b4758d0ee7e069, type: 3}
   m_Name: StoryVariables
   m_EditorClassIdentifier: Assembly-CSharp::StoryVariables
-  data:
-  - id: PlayerSkippedQ1
+  rawData:
+  - id: PlayerDidNotAnswerQ1
     value: false
