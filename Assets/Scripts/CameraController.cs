@@ -44,7 +44,7 @@ public class CameraController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (enableControl)
+        if (enableControl && !Cursor.visible)
         {
             HandleMouseLook();
             HandleIdleSway();
@@ -68,7 +68,7 @@ public class CameraController : MonoBehaviour
         // Apply rotation (pitch only)
         transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
 
-        if (Mathf.Approximately(xRotation, verticalClampMax))
+        if (xRotation >= verticalClampMax - 1)
         {
             if (!hasTriggeredMaxClamp)
             {

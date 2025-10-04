@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
     [Header("Object Hooks")]
     public Camera mainCam;
     public GameObject dialogueOptionPrefab;
+    public Transform dialogueOptionParent;
 
     [Header("Script Hooks")]
     public CameraController camScript;
@@ -91,6 +92,15 @@ public class GameManager : MonoBehaviour
     public static void WaitCommand(float seconds)
     {
         Instance.camMoveQueue.Enqueue(Instance.WaitRoutine(seconds));
+    }
+
+    [YarnCommand("DialogueOption")]
+    public void SpawnOption(string displayText, string nextNode, float delay, float duration, float x, float y, float z)
+    {
+        Vector3 spawnPos = new Vector3(x, y, z);
+        var opt = Instantiate(dialogueOptionPrefab, spawnPos, Quaternion.identity, dialogueOptionParent);
+        DialogueOption script = opt.GetComponent<DialogueOption>();
+        script.Initialize(displayText, nextNode, delay, duration, dr);
     }
 
     private IEnumerator WaitRoutine(float seconds)

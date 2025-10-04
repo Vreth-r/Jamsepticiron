@@ -20,7 +20,7 @@ public class Contract : MonoBehaviour
 
     private Queue<IEnumerator> moveQueue = new Queue<IEnumerator>();
 
-    public void Awake()
+    public void Start()
     {
         Transform caret = (((gameObject.transform.Find("Canvas")).Find("NameInput")).Find("Text Area")).Find("Caret");
         Destroy(caret.gameObject); // fuck this thing and its whole family.

@@ -1,97 +1,106 @@
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
-using System.Collections;
+using UnityEngine.UI;
 using Yarn.Unity;
+using System.Collections;
 
 public class DialogueOption : MonoBehaviour
 {
-    [Header("UI")]
+    [Header("References")]
     public TextMeshProUGUI text;
-    public CanvasGroup canvasGroup; // used for fading
-    public Button button;
+    public CanvasGroup canvasGroup;
+    private DialogueRunner runner;
 
     [Header("Timing")]
-    public float duration = 3f; // how long to stay visible
-    public float delay = 0f;    // how long to wait before fade in
+    public float duration;
+    public float delay;
 
-    [Header("Yarn Settings")]
-    public string nextNode;
+    private bool clicked = false;
 
-    private DialogueRunner dialogueRunner;
+    private string nextNode;
 
-    void Awake()
-    {
-        if (canvasGroup == null)
-            canvasGroup = GetComponent<CanvasGroup>();
-        if (button == null)
-            button = GetComponent<Button>();
-
-        // Ensure start invisible
-        canvasGroup.alpha = 0f;
-        button.interactable = false;
-    }
-
-    public void Initialize(string displayText, string nodeName, DialogueRunner runner)
+    // Called right after instantiation by the spawner
+    public void Initialize(string displayText, string node, float d, float dur, DialogueRunner dialogueRunner)
     {
         text.text = displayText;
-        nextNode = nodeName;
-        dialogueRunner = runner;
+        nextNode = node;
+        delay = d;
+        duration = dur;
+        runner = dialogueRunner;
 
-        button.onClick.AddListener(OnClicked);
-
-        StartCoroutine(Lifecycle());
+        // Start fade routine
+        StartCoroutine(PlayLifecycle());
     }
 
-    private IEnumerator Lifecycle()
+    private IEnumerator PlayLifecycle()
     {
-        // wait for delay
-        yield return new WaitForSeconds(delay);
+        // Start invisible
+        canvasGroup.alpha = 0f;
 
-        // fade in
-        yield return StartCoroutine(Fade(0f, 1f, 0.25f));
-        button.interactable = true;
+        // Wait before fade in
+        if (delay > 0)
+            yield return new WaitForSeconds(delay);
 
-        // stay visible
-        yield return new WaitForSeconds(duration);
-
-        // fade out
-        yield return StartCoroutine(Fade(1f, 0f, 0.25f));
-
-        Destroy(gameObject); // fuck that hoe
-    }
-
-    private IEnumerator Fade(float from, float to, float time)
-    {
+        // Fade in
+        float fadeTime = 0.5f;
         float elapsed = 0f;
-        while (elapsed < time)
+        while (elapsed < fadeTime)
         {
             elapsed += Time.deltaTime;
-            float t = Mathf.Clamp01(elapsed / time);
-            canvasGroup.alpha = Mathf.Lerp(from, to, t);
+            canvasGroup.alpha = Mathf.Lerp(0f, 1f, elapsed / fadeTime);
             yield return null;
         }
-        canvasGroup.alpha = to;
+        canvasGroup.alpha = 1f;
+
+        // Wait for duration (unless clicked early)
+        elapsed = 0f;
+        while (elapsed < duration && !clicked)
+        {
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        if (!clicked)
+        {
+            // Fade out if not clicked
+            elapsed = 0f;
+            while (elapsed < fadeTime)
+            {
+                elapsed += Time.deltaTime;
+                canvasGroup.alpha = Mathf.Lerp(1f, 0f, elapsed / fadeTime);
+                yield return null;
+            }
+            Destroy(gameObject);
+        }
     }
 
-    private void OnClicked()
+    // Hook this up to a Unity Button component on your prefab
+    public void OnClick()
     {
-        // wipe all other options
-        DialogueOption[] others = Object.FindObjectsByType<DialogueOption>(FindObjectsSortMode.None);
-        foreach (var opt in others)
+        if (clicked) return;
+
+        clicked = true;
+
+        // Destroy all other DialogueOptions on screen
+        foreach (var other in FindObjectsByType<DialogueOption>(FindObjectsSortMode.None))
         {
-            if (opt != this)
-                Destroy(opt.gameObject);
+            if (other != this)
+                Destroy(other.gameObject);
         }
 
-        // start the next yarn node
-        if (dialogueRunner != null && !string.IsNullOrEmpty(nextNode))
-        {
-            dialogueRunner.Stop(); // stop current line
-            dialogueRunner.StartDialogue(nextNode);
-        }
+        // Jump Yarn
+        runner?.StartDialogue(nextNode);
 
-        // destroy self
         Destroy(gameObject);
+    }
+
+    private void LateUpdate()
+    {
+        // Always face camera
+        if (Camera.main != null)
+        {
+            transform.LookAt(Camera.main.transform);
+            transform.Rotate(0, 180f, 0); // flip to face correctly
+        }
     }
 }
