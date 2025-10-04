@@ -4,19 +4,75 @@
 
 <<CameraInput "Game Manager" true>>
 
-<<DialogueOption "Game Manager" "Where?" "dwai" 0.5 5 -20 70 -30>>
-<<DialogueOption "Game Manager" "For... a job?" "anger" 2 8 30 70 -30>>
-<<DialogueOption "Game Manager" "For... a job?" "anger" 2 8 30 70 -30>>
-<<wait 10>>
-Bruh.
+<<DialogueOption "Game Manager" "What is happening?" "explain" 0.5 10 -20 70 -30>>
+<<DialogueOption "Game Manager" "Where am I?" "explain" 2 8 30 70 -30>>
+<<wait 7>>
+Speak.
 ===
 
-title: dwai
+title: explain
 ---
-Don't worry about it
+You are at an interview, to see if you are a good fit.
+
+<<DialogueOption "Game Manager" "A job? But I already have a job." "noJob" 0.5 5 -20 70 -30>>
+<<DialogueOption "Game Manager" "What if I'm not?" "aShame" 2 8 -20 70 -30>>
+
+<<wait 10>>
+<<jump fiveMin>>
 ===
 
 title: anger
 ---
 You're broke.
+===
+
+title: noJob
+---
+Not anymore.
+
+<<wait 2>>
+<<jump fiveMin>>
+===
+
+title: aShame
+---
+Then it would be a shame.
+
+<<wait 2>>
+<<jump fiveMin>>
+===
+
+title: fiveMin
+---
+You have 5 minutes to fill this out.
+
+I don't suggest lying.
+
+<<DialogueOption "Game Manager" "What if I don't fill this out?" "dontFill" 0.5 5 -20 70 -30>>
+<<DialogueOption "Game Manager" "Who are you?" "title: whoRu" 2 8 -20 70 -30>>
+
+<<wait 15>>
+<<jump whatStrengths>>
+===
+
+title: dontFill
+---
+Then the page stays empty.
+
+<<wait 10>>
+<<jump whatStrengths>>
+===
+
+title: whoRu
+---
+Not relevant.
+
+<<wait 10>>
+<<jump whatStrengths>>
+===
+
+title: whatStrengths
+---
+What are your strengths?
+
 ===

@@ -469,12 +469,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2297c3d8bedf044ca6c34c391277021, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  deathFont: {fileID: 11400000, guid: 569d38eef0e3eaf4da1e440967b7f0a2, type: 2}
-  playerFont: {fileID: 11400000, guid: bd26075bf79dde34f84b7af38f2c26a1, type: 2}
+  deathFont: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  playerFont: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   linePresenter: {fileID: 1795490159}
   dr: {fileID: 1795490158}
   cameraAnims: {fileID: 11400000, guid: b2c6e5a0cfc01d74780b1b83c5fb860e, type: 2}
-  storyVars: {fileID: 0}
+  storyVars: {fileID: 11400000, guid: 65564a512a4479940827c4ea66607ed8, type: 2}
   mainCam: {fileID: 330585545}
   dialogueOptionPrefab: {fileID: 5413038516506096579, guid: a7ee48ef9122c74499fac35afb81756e, type: 3}
   dialogueOptionParent: {fileID: 1299739672}
@@ -1165,14 +1165,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1473004208431247003, guid: 497ed0ecdf8767847805d9cc7d98d79a, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1482898506569843580, guid: 497ed0ecdf8767847805d9cc7d98d79a, type: 3}
       propertyPath: m_Name
       value: ShaderCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 1482898506569843580, guid: 497ed0ecdf8767847805d9cc7d98d79a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3386691533066961601, guid: 497ed0ecdf8767847805d9cc7d98d79a, type: 3}
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 330585545}
+    - target: {fileID: 3386691533066961601, guid: 497ed0ecdf8767847805d9cc7d98d79a, type: 3}
+      propertyPath: m_RenderMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8479206991885963175, guid: 497ed0ecdf8767847805d9cc7d98d79a, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -1203,6 +1215,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8479206991885963175, guid: 497ed0ecdf8767847805d9cc7d98d79a, type: 3}
       propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8479206991885963175, guid: 497ed0ecdf8767847805d9cc7d98d79a, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8479206991885963175, guid: 497ed0ecdf8767847805d9cc7d98d79a, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8479206991885963175, guid: 497ed0ecdf8767847805d9cc7d98d79a, type: 3}
+      propertyPath: m_LocalScale.z
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8479206991885963175, guid: 497ed0ecdf8767847805d9cc7d98d79a, type: 3}
