@@ -74,7 +74,6 @@ public class DialogueOption : MonoBehaviour
         }
     }
 
-    // Hook this up to a Unity Button component on your prefab
     public void OnClick()
     {
         if (clicked) return;

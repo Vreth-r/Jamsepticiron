@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Data Hooks")]
     public CameraAnimDB cameraAnims;
+    public StoryVariables storyVars;
 
     [Header("Object Hooks")]
     public Camera mainCam;
@@ -42,6 +43,7 @@ public class GameManager : MonoBehaviour
     {
         Instance = this;
         cameraAnims.Init();
+        storyVars.Init();
         camScript.enableControl = false;
     }
 
@@ -108,6 +110,12 @@ public class GameManager : MonoBehaviour
     public void CameraInput(bool value)
     {
         camScript.enableControl = value;
+    }
+
+    [YarnCommand("SetVariable")]
+    public void SetVariable(string id, string value)
+    {
+        storyVars.data[id] = value;
     }
 
     private IEnumerator WaitRoutine(float seconds)
