@@ -6,6 +6,7 @@ using Yarn.Unity;
 using TMPro;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Collections;
 
 
 // for simplicity this script will also function as the yarn commander
@@ -98,7 +99,30 @@ public class GameManager : MonoBehaviour
     }
 
     [YarnCommand("DialogueOption")]
-    public void SpawnOption(string displayText, string nextNode, float delay, float duration, float x, float y, float z)
+    public void SpawnOption(string displayText, string nextNode, float delay, float duration, string vertLocation, string horizontalLocation)
+    {
+        float x = 0;
+        float y = 0;
+        float z = 0;
+        if (vertLocation == "top") { y = 85; }
+
+        if (vertLocation == "bot"){y = 55;}
+        
+        if (vertLocation == "mid"){ y = 65; }
+
+        if (horizontalLocation == "L") { x = -25; }
+        
+        if (horizontalLocation == "R"){ x = 45;}
+
+
+        Vector3 spawnPos = new Vector3(x, y, z);
+        var opt = Instantiate(dialogueOptionPrefab, spawnPos, Quaternion.identity, dialogueOptionParent);
+        DialogueOption script = opt.GetComponent<DialogueOption>();
+        script.Initialize(displayText, nextNode, delay, duration, dr);
+    }
+
+    [YarnCommand("DialogueOptionSpecific")]
+    public void SpawnOptionSpecific(string displayText, string nextNode, float delay, float duration, float x, float y, float z)
     {
         Vector3 spawnPos = new Vector3(x, y, z);
         var opt = Instantiate(dialogueOptionPrefab, spawnPos, Quaternion.identity, dialogueOptionParent);
