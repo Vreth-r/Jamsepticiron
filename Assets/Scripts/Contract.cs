@@ -13,10 +13,10 @@ public class Contract : MonoBehaviour
     public Vector3 viewPos;
     public Vector3 viewRot;
 
-    private bool isMoving = false;
+    //private bool isMoving = false;
 
     public TMP_InputField nameInput;
-    private bool isNameFilled = false;
+    //private bool isNameFilled = false;
 
     private Queue<IEnumerator> moveQueue = new Queue<IEnumerator>();
 
@@ -26,6 +26,7 @@ public class Contract : MonoBehaviour
         Destroy(caret.gameObject); // fuck this thing and its whole family.
     }
 
+    /*
     public void Update()
     {
         // If idle and there’s a queued move, start it
@@ -34,6 +35,7 @@ public class Contract : MonoBehaviour
             StartCoroutine(RunNext());
         }
     }
+    
 
     private IEnumerator RunNext()
     {
@@ -91,4 +93,5 @@ public class Contract : MonoBehaviour
         gameObject.transform.position = targetPos;
         gameObject.transform.rotation = endRot;
     }
+    */
 }
