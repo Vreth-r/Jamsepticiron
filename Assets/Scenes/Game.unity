@@ -436,6 +436,7 @@ Transform:
   - {fileID: 1321066140}
   - {fileID: 18095965}
   - {fileID: 634465435}
+  - {fileID: 1792216744}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &254412530
@@ -518,7 +519,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 254412530}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ce7f36b201b8d9848bd75440794bae9f, type: 3}
   m_Name: 
@@ -1165,6 +1166,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 306339010159768657, guid: 497ed0ecdf8767847805d9cc7d98d79a, type: 3}
+      propertyPath: m_Name
+      value: ShaderedGame
+      objectReference: {fileID: 0}
     - target: {fileID: 1473004208431247003, guid: 497ed0ecdf8767847805d9cc7d98d79a, type: 3}
       propertyPath: m_PresetInfoIsWorld
       value: 0
@@ -2585,12 +2590,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1792216742}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 19, y: 59.4, z: -85.1}
   m_LocalScale: {x: 1.88, y: 1.88, z: 1.88}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 196726820}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1795490157
 PrefabInstance:
@@ -2955,6 +2960,5 @@ SceneRoots:
   - {fileID: 1795490157}
   - {fileID: 196726820}
   - {fileID: 1338831117}
-  - {fileID: 1792216744}
   - {fileID: 1299739672}
   - {fileID: 1758312709}
