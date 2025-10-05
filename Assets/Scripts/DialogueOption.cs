@@ -1,105 +1,97 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
-using Yarn.Unity;
 using System.Collections;
 
 public class DialogueOption : MonoBehaviour
 {
-    [Header("References")]
     public TextMeshProUGUI text;
     public CanvasGroup canvasGroup;
-    private DialogueRunner runner;
-
-    [Header("Timing")]
-    public float duration;
-    public float delay;
-
-    private bool clicked = false;
-
     private string nextNode;
+    private bool interactable = false;
 
-    // Called right after instantiation by the spawner
-    public void Initialize(string displayText, string node, float d, float dur, DialogueRunner dialogueRunner)
+    public void Setup(string displayText, string node, float delay, float duration)
     {
         text.text = displayText;
         nextNode = node;
-        delay = d;
-        duration = dur;
-        runner = dialogueRunner;
 
-        // Start fade routine
-        StartCoroutine(PlayLifecycle());
+        // Ensure proper initial state
+        canvasGroup.alpha = 0f;
+        canvasGroup.blocksRaycasts = false;
+        canvasGroup.interactable = false;
+
+        StartCoroutine(Lifecycle(delay, duration));
     }
 
-    private IEnumerator PlayLifecycle()
+    private IEnumerator Lifecycle(float delay, float duration)
     {
-        // Start invisible
-        canvasGroup.alpha = 0f;
-
         // Wait before fade in
-        if (delay > 0)
-            yield return new WaitForSeconds(delay);
+        yield return new WaitForSeconds(delay);
 
-        // Fade in
-        float fadeTime = 0.5f;
-        float elapsed = 0f;
-        while (elapsed < fadeTime)
-        {
-            elapsed += Time.deltaTime;
-            canvasGroup.alpha = Mathf.Lerp(0f, 1f, elapsed / fadeTime);
-            yield return null;
-        }
-        canvasGroup.alpha = 1f;
+        // Fade in and enable raycasts only when visible
+        yield return Fade(0f, 1f);
+        canvasGroup.blocksRaycasts = true;
+        canvasGroup.interactable = true;
+        interactable = true;
 
-        // Wait for duration (unless clicked early)
-        elapsed = 0f;
-        while (elapsed < duration && !clicked)
-        {
-            elapsed += Time.deltaTime;
-            yield return null;
-        }
+        // Stay visible for the duration
+        yield return new WaitForSeconds(duration);
 
-        if (!clicked)
-        {
-            // Fade out if not clicked
-            elapsed = 0f;
-            while (elapsed < fadeTime)
-            {
-                elapsed += Time.deltaTime;
-                canvasGroup.alpha = Mathf.Lerp(1f, 0f, elapsed / fadeTime);
-                yield return null;
-            }
-            Destroy(gameObject);
-        }
+        // Fade out and disable raycasts again
+        interactable = false;
+        canvasGroup.blocksRaycasts = false;
+        canvasGroup.interactable = false;
+
+        yield return Fade(1f, 0f);
+        Destroy(gameObject);
     }
 
     public void OnClick()
     {
-        if (clicked) return;
+        if (!interactable) return;
 
-        clicked = true;
+        interactable = false;
+        canvasGroup.blocksRaycasts = false;
+        canvasGroup.interactable = false;
 
-        // Destroy all other DialogueOptions on screen
-        foreach (var other in FindObjectsByType<DialogueOption>(FindObjectsSortMode.None))
-        {
-            if (other != this)
-                Destroy(other.gameObject);
-        }
-
-        // Jump Yarn
-        runner?.StartDialogue(nextNode);
-
-        Destroy(gameObject);
+        Debug.Log("Dialogue option clicked");
+        GameManager.Instance.OnOptionClicked(nextNode);
     }
 
-    private void LateUpdate()
+    public IEnumerator Fade(float from, float to, float time = 0.5f)
     {
-        // Always face camera
-        if (Camera.main != null)
+        float t = 0f;
+        while (t < time)
         {
-            transform.LookAt(Camera.main.transform);
-            transform.Rotate(0, 180f, 0); // flip to face correctly
+            t += Time.deltaTime;
+            canvasGroup.alpha = Mathf.Lerp(from, to, t / time);
+            yield return null;
         }
+
+        canvasGroup.alpha = to;
+
+        // Adjust raycast blocking dynamically at end of fade
+        if (to <= 0f)
+        {
+            canvasGroup.blocksRaycasts = false;
+            canvasGroup.interactable = false;
+        }
+        else
+        {
+            canvasGroup.blocksRaycasts = true;
+            canvasGroup.interactable = true;
+        }
+    }
+
+    public void FadeOutAndDestroy() => StartCoroutine(FadeAndKill());
+
+    private IEnumerator FadeAndKill()
+    {
+        interactable = false;
+        canvasGroup.blocksRaycasts = false;
+        canvasGroup.interactable = false;
+
+        yield return Fade(canvasGroup.alpha, 0f);
+        Destroy(gameObject);
     }
 }

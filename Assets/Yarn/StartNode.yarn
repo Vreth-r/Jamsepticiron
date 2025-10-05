@@ -1,5 +1,6 @@
 ﻿title: StartNode
 ---
+
 <<ChangeFont "Game Manager" "death">>
 
 
@@ -12,71 +13,109 @@
 Speak.
 <<DialogueOption "Game Manager" "What is happening?" "explain" 0.5 9 "mid" "R">>
 <<DialogueOption "Game Manager" "Where am I?" "explain" 0.5 8 "top" "L">>
-<<wait 14>>
-<<jump form>>
+<<Wait "form" 14>>
+
+<<stop>>
+===
+
+title: testNode
+---
+
+<<ChangeFont "Game Manager" "death">>
+Hibbidy Hoo Blah.
+Wheres the freakin' gabagool?
+What the sigma!?
+AAAAAAAAAAAAAAAAAAA!
+<<DialogueOption "Game Manager" "Man fuck you." "testNode2" 0 3 "mid" "R">>
+
+<<stop>>
+===
+
+title: testNode2
+---
+
+You're cooked cuh
+
+<<stop>>
 ===
 
 title: explain
 ---
+
 You are at an interview, to see if you are a good fit.
 <<DialogueOption "Game Manager" "What if I'm not?" "whatIfImNot" 2 6 "top" "L">>
-<<DialogueOption "Game Manager" "A job? But I already have a job." "alreadyHaveJob" 1 8 "top" "R">>
-<<wait 10>>
-<<jump form>>
+<<DialogueOption "Game Manager" "A job? But I already have a job." "alreadyHaveAJob" 1 8 "top" "R">>
+<<Wait "form" 10>>
+
+<<stop>>
 ===
 
 title: whatIfImNot
 ---
+
+
 That would be a shame.
-<<wait 1>>
-<<jump form>>
+<<Wait "form" 1>>
+
+<<stop>>
 ===
 
 title: alreadyHaveAJob
 ---
+
 Not anymore.
-<<wait 1>>
-<<jump form>>
+<<Wait "form" 1>>
+
+<<stop>>
 ===
 
 title: form
 ---
+
 You have five minutes to fill this out.
 I don't suggest lying.
-
+<<wait 1>>
 <<DialogueOption "Game Manager" "What if I don't fill this out" "whatIfIDont" 2 6 "top" "R">>
 <<DialogueOption "Game Manager" "Who are you?" "whoAreYou" 3 3 "bot" "L">>
-<<wait 8>>
-<<jump strengths>>
+<<Wait "strengths" 8>>
+
+<<stop>>
 ===
 
 title: whatIfIDont
 ---
+
 Then the page stays empty.
-<<wait 1>>
-<<jump strengths>>
+<<Wait "strengths" 1>>
+
+<<stop>>
 ===
 
 title: whoAreYou
 ---
+
 That's not what's important.
-<<wait 1>>
-<<jump strengths>>
+<<Wait "strengths" 1>>
+
+<<stop>>
 ===
 
 title: strengths
 ---
+
 What are your strengths?
 <<DialogueOption "Game Manager" "I'm great at washing the dishes." "unsuccessful" 0.5 8 "top" "R">>
 <<DialogueOption "Game Manager" "I don't have any and don't want any." "unsuccessful" 1 9 "top" "L" "Apathy" 1>> // apathy + 1
 <<DialogueOption "Game Manager" "I am a team player." "unsuccessful" 0.5 8 "bot" "R">> 
 <<DialogueOption "Game Manager" "I am really good at customer service." "unsuccessful" 3 2 "bot" "L">>
-<<wait 11>>
-<<jump unsuccessful>>
+<<Wait "unsuccessful" 11>>
+
+<<stop>>
 ===
 
 title: unsuccessful
 ---
+
 Why were you unsuccessful?
 
 <<DialogueOption "Game Manager" "Nuh uh, I'm super successful." "humanLife" 1.5 6 "top" "L">>
@@ -86,12 +125,14 @@ Why were you unsuccessful?
 <<DialogueOption "Game Manager" "Don't know, don't care" "humanLife" 1.3 5.7 "bot" "R" "Apathy" 1>> // apathy + 1
 <<DialogueOption "Game Manager" "I could've been better to the people who loved me..." "humanLife" 9 6 "mid" "L" "Truth" 1>> // truth + 1
 <<DialogueOption "Game Manager" "I didn't plan far enough ahead." "humanLife" 10 7 "mid" "R" "Killer" 1>> // serial killer + 1
-<<wait 21>>
-<<jump humanLife>>
+<<Wait "humanLife" 21>>
+
+<<stop>>
 ===
 
 title: noFriends
 ---
+
 Elaborate.
 
 // topL
@@ -111,12 +152,14 @@ Elaborate.
 <<DialogueOption "Game Manager" "I think friends are cool." "humanLife" 0.5 6 "bot" "R">>
 <<DialogueOption "Game Manager" "I think I missed out" "humanLife" 9.5 6 "bot" "R">>
 
-<<wait 19>>
-<<jump humanLife>>
+<<Wait "humanLife" 19>>
+
+<<stop>>
 ===
 
 title: humanLife
 ---
+
 What is the value of a human life?
 
 // topL
@@ -133,12 +176,14 @@ What is the value of a human life?
 //midR
 <<DialogueOption "Game Manager" "Nothing, humans are worthless." "hell" 4 3 "mid" "R" "Apathy" 1>> // apathy + 1
 <<DialogueOption "Game Manager" "Did they have life insurance?" "hell" 7 2 "mid" "R" "Killer" 1>> // serial killer + 1
-<<wait 12>>
-<<jump hell>>
+<<Wait "hell" 12>>
+
+<<stop>>
 ===
 
 title: hell
 ---
+
 If you were told you were going to hell, how would you feel?
 
 //topL
@@ -153,22 +198,26 @@ If you were told you were going to hell, how would you feel?
 <<DialogueOption "Game Manager" "It would be worth it." "pointCalc" 4.5 3 "mid" "L" "Killer" 1>> // serial killer + 1
 //midR
 <<DialogueOption "Game Manager" "I would understand" "wouldUnderstand" 4.5 3 "mid" "R" "Truth" 1>> // truth + 1
-<<wait 10>>
-<<jump pointCalc>>
+<<Wait "pointCalc" 12>>
+
+<<stop>>
 ===
 
 title: wouldUnderstand
 ---
+
 Do you regret your life?
 <<DialogueOption "Game Manager" "Yes, all of it." "pointCalc" 0 3 "top" "R">>
 <<DialogueOption "Game Manager" "No, but I regret the hurt I inflicted." "pointCalc" 3 3 "mid" "R" "Truth" 1>> // truth + 1
 <<DialogueOption "Game Manager" "No, I regret nothing." "pointCalc" 3 3 "mid" "L" "Killer" 1>> // serial killer + 1
-<<wait 8>>
-<<jump pointCalc>>
+<<Wait "pointCalc" 8>>
+
+<<stop>>
 ===
 
 title: pointCalc
 ---
+
 //At this point, the player should have answered 6 questions.
 
 //You can earn, in total, 4 apathy points OR 
@@ -182,39 +231,48 @@ title: pointCalc
 //If they don't fit these criteriums, they just go to hell.
 //<<jump mediocrePerformanceEnding>>
 <<BranchApathy "Game Manager">>
+
+<<stop>>
 ===
 
 title: rememberThem
 ---
+
 Do you remember them?
 
 <<DialogueOption "Game Manager" "Yes." "yesIRemember" 0 3 "top" "L">>
 <<DialogueOption "Game Manager" "No." "noIForgor" 0 3 "top" "R">>
-<<wait 5>>
-<<jump noIForgor>>
+<<Wait "noIForgor" 5>>
+
+<<stop>>
 ===
 
 title: yesIRemember
 ---
+
 <<DialogueOption "Game Manager" "How could I not?" "confessionCalc" 0 3 "top" "L">>
 <<DialogueOption "Game Manager" "I don't want to remember..." "dontWantRemember" 2 3 "bot" "R">>
-<<wait 6>>
-<<jump dontWantRemember>>
+<<Wait "dontWantRemember" 6>>
+
+<<stop>>
 ===
 
 title: noIForgor
 ---
+
 Are you sure?
 
 <<DialogueOption "Game Manager" "Yes, I'm sure." "mediocrePerformanceEnding" 0 3 "top" "R">>
 <<DialogueOption "Game Manager" "I remember their screams." "confessionCalc" 3 3 "top" "L">> // serial killer + 1
 <<DialogueOption "Game Manager" "I don't want to remember..." "dontWantRemember" 2 3 "bot" "R">>
-<<wait 7>>
-<<jump dontWantRemember>>
+<<Wait "dontWantRemember" 7>>
+
+<<stop>>
 ===
 
 title: confessionCalc
 ---
+
 //See which number is bigger, serial killer or truth.
 //If the player has a clear winner in points, jump to the appropriate one.
 //If it is tied, show them both.
@@ -225,23 +283,27 @@ title: confessionCalc
 // serial killer
 //<<DialogueOption "Game Manager" "I chose them to send to you." "serialKillerConfession" 0 3 "mid" "R">>
 <<BranchKillerTruth "Game Manager" "I chose them to send to you." "serialKillerConfession" 0 6 "mid" "R" "They were my greatest regrets." "truthConfession" 0 6 "mid" "L">>
-<<wait 7>>
-<<jump mediocrePerformanceEnding>>
+<<Wait "mediocrePerformanceEnding" 7>>
+
+<<stop>>
 ===
 
 title: dontWantRemember
 ---
+
 <<ChangeFont "Game Manager" "player">>
 player: But I... do remember. 
 
 <<DialogueOption "Game Manager" "Please don't make me..." "mediocrePerformanceEnding" 0 6 "mid" "L">>
 <<DialogueOption "Game Manager" "It's the right thing to do." "pointCalc" 3 3 "mid" "R" "Truth" 1>> // truth + 1
-<<wait 8>>
-<<jump mediocrePerformanceEnding>>
+<<Wait "mediocrePerformanceEnding" 8>>
+
+<<stop>>
 ===
 
 title: truthConfession
 ---
+
 <<ChangeFont "Game Manager" "player">>
 player: My whole life was a series of mistakes,
 player: one after the other.
@@ -257,22 +319,26 @@ player: ...
 player: Nor you, for that matter.
 
 <<DialogueOption "Game Manager" "But I hope you can accept my application." "deathFunnie" 0 3 "bot" "R">>
-<<wait 5>>
-<<jump trueEndingP1>>
+<<Wait "trueEndingP1" 5>>
+
+<<stop>>
 ===
 
 title: deathFunnie
 ---
+
 <<ChangeFont "Game Manager" "player">>
 player: I think being tortured by immortality would hurt less than seeing the people I hurt again.
 <<ChangeFont "Game Manager" "death">>
 HA!!
-<<wait 1>>
-<<jump trueEndingP1>>
+<<Wait "trueEndingP1" 1>>
+
+<<stop>>
 ===
 
 title: trueEndingP1
 ---
+
 // you got the job yay!
 <<ChangeFont "Game Manager" "death">>
 This...
@@ -282,25 +348,33 @@ You will listen.
 You will remember. 
 
 <<DialogueOptionSpecific "Game Manager" "And I will feel... everything." "trueEndingP2" 0 3 0 0 -30>>
-<<wait 4>>
-<<jump trueEndingP2>>
+<<Wait "trueEndingP2" 4>>
+
+<<stop>>
 ===
 
 title: trueEndingP2
 ---
+
 // play the ending animation yayyyy
+
+<<stop>>
 ===
 
 title: mediocrePerformanceEnding
 ---
+
 //The ending where you fall into the void.
 <<ChangeFont "Game Manager" "death">>
 The interview is over, thank you for your time.
 Enjoy your stay.
+
+<<stop>>
 ===
 
 title: apathyEnding
 ---
+
 <<ChangeFont "Game Manager" "death">>
 ...
 I was like you once. 
@@ -315,10 +389,13 @@ let me give you a feeling worth screaming for.
 
 // play animation of him fuckin disintegrating
 
+
+<<stop>>
 ===
 
 title: serialKillerConfession
 ---
+
 <<ChangeFont "Game Manager" "player">>
 player: I hand picked them myself.
 player: Young...
@@ -337,11 +414,15 @@ player: I did this for you...
 Do you think you're special?
 <<wait 1>>
 You deserve this.
-<<wait 2>>
-<<jump serialKillerEnding>>
+<<Wait "serialKillerEnding" 3>>
+
+<<stop>>
 ===
 
 title: serialKillerEnding
 ---
+
 // he gets hit by 7 trucks and dies LA MAO!
+
+<<stop>>
 ===
