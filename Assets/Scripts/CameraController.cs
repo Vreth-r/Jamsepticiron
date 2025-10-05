@@ -46,6 +46,9 @@ public class CameraController : MonoBehaviour
         if (enableControl && !Cursor.visible)
         {
             HandleMouseLook();
+        }
+        if (enableControl)
+        {
             HandleIdleSway();
         }
     }
