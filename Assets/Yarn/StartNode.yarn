@@ -6,14 +6,14 @@
 <<wait 1>>
 <<CameraInput "Game Manager" true>>
 
-<<DialogueOption "Game Manager" "What is happening?" "explain" 0.5 8 -20 70 -30>>
-<<DialogueOption "Game Manager" "Where am I?" "explain" 2 7 30 70 -30>>
+<<DialogueOptionSpecific "Game Manager" "What is happening?" "explain" 0.5 8 -20 70 -30>>
+<<DialogueOptionSpecific "Game Manager" "Where am I?" "explain" 2 7 30 70 -30>>
 <<wait 10>>
 Speak.
-<<DialogueOption "Game Manager" "What is happening?" "explain" 0.5 9 -25 72 -30>>
-<<DialogueOption "Game Manager" "Where am I?" "explain" 0.5 8 25 65 -30>>
-<<wait 11>>
-<<jump fiveMin>>
+//<<DialogueOption "Game Manager" "What is happening?" "explain" 0.5 9 -25 72 -30>>
+//<<DialogueOption "Game Manager" "Where am I?" "explain" 0.5 8 25 65 -30>>
+//<<wait 11>>
+//<<jump fiveMin>>
 ===
 
 title: explain
@@ -77,19 +77,16 @@ What are your strengths?
 
 title: unsuccessful
 ---
-Why were you unseccessful?
+Why were you unsuccessful?
 
-// topL -25 85 -30
+<<DialogueOption "Game Manager" "Nuh uh, I'm super successful." "humanLife" 1.5 6 "top" "L">>
+<<DialogueOption "Game Manager" "I suck at life, probably." "humanLife" 0 5.5 "top" "R">> 
+<<DialogueOption "Game Manager" "I didn't have enough friends" "noFriends" 2 6 "bot" "L">>
+<<DialogueOption "Game Manager" "Don't know, don't care" "humanLife" 1.3 5.7 "bot" "R">> // apathy + 1
 
-// topR 45 85 -30
 
-// botL -25 55 -30
-<<DialogueOption "Game Manager" "Nuh uh, I'm super successful." "humanLife" 0.5 5 30 65 -30>>
-<<DialogueOption "Game Manager" "I suck at life, probably." "humanLife" 1 5 -30 65 -30>> 
-<<DialogueOption "Game Manager" "I didn't have enough friends" "noFriends" 5.5 3 30 65 -30>>
-<<DialogueOption "Game Manager" "Don't know, don't care" "humanLife" 1.3 5 35 45 -30>> // apathy + 1
-<<DialogueOption "Game Manager" "I could've been better to the people who loved me..." "humanLife" 3 6 -25 45 -30>> // truth + 1
-<<DialogueOption "Game Manager" "I didn't plan far enough ahead." "humanLife" 5 3 0 70 -30>> // serial killer + 1
+<<DialogueOption "Game Manager" "I could've been better to the people who loved me..." "humanLife" 9 6 "mid" "L">> // truth + 1
+<<DialogueOption "Game Manager" "I didn't plan far enough ahead." "humanLife" 10 7 "mid" "R">> // serial killer + 1
 <<wait 10>>
 
 <<jump humanLife>>
@@ -101,21 +98,21 @@ Elaborate.
 // string displayText, string nextNode, float delay, float duration, float x, float y, float z
 
 // topL
-<<DialogueOption "Game Manager" "I don't know, but it's expected, right?" "humanLife" 0 6 -25 85 -30 >> // apathy + 1
+<<DialogueOption "Game Manager" "I don't know, but it's expected, right?" "humanLife" 0 6 "top" "L">> // apathy + 1
 
 //topR
-<<DialogueOption "Game Manager" "Being a working adult is lonely, man." "humanLife" 1.5 6 45 85 -30>>
-<<DialogueOption "Game Manager" "I could've had more connections" "humanLife" 10.5 6 45 85 -30>> 
+<<DialogueOption "Game Manager" "Being a working adult is lonely, man." "humanLife" 1.5 6 "top" "R">>
+<<DialogueOption "Game Manager" "I could've had more connections" "humanLife" 10.5 6 "top" "R">> 
 
 //botL
-<<DialogueOption "Game Manager" "I had a lot, but I didn't treasure them." "humanLife" 2 6 -25 55 -30>> // truth + 1
+<<DialogueOption "Game Manager" "I had a lot, but I didn't treasure them." "humanLife" 2 6 "bot" "L">> // truth + 1
 
 //midL
-<<DialogueOption "Game Manager" "It's easier to get away with things" "humanLife" 11 6 -25 65 -30>> // serial killer + 1
+<<DialogueOption "Game Manager" "It's easier to get away with things" "humanLife" 11 6 "mid" "L">> // serial killer + 1
 
 //botR
-<<DialogueOption "Game Manager" "I think friends are cool." "humanLife" 0.5 6 45 55 -30>>
-<<DialogueOption "Game Manager" "I think I missed out" "humanLife" 9.5 6 60 55 -30>>
+<<DialogueOption "Game Manager" "I think friends are cool." "humanLife" 0.5 6 "bot" "R">>
+<<DialogueOption "Game Manager" "I think I missed out" "humanLife" 9.5 6 "bot" "R">>
 
 <<wait 8>>
 
