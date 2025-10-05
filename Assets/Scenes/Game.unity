@@ -475,7 +475,6 @@ MonoBehaviour:
   linePresenter: {fileID: 1795490159}
   dr: {fileID: 1795490158}
   cameraAnims: {fileID: 11400000, guid: b2c6e5a0cfc01d74780b1b83c5fb860e, type: 2}
-  storyVars: {fileID: 11400000, guid: 65564a512a4479940827c4ea66607ed8, type: 2}
   mainCam: {fileID: 330585545}
   dialogueOptionPrefab: {fileID: 5413038516506096579, guid: a7ee48ef9122c74499fac35afb81756e, type: 3}
   dialogueOptionParent: {fileID: 1299739672}
@@ -2671,11 +2670,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2958262986520364888, guid: 52571f68872914e24837210513edea1d, type: 3}
       propertyPath: m_fontSize
-      value: 50
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 2958262986520364888, guid: 52571f68872914e24837210513edea1d, type: 3}
       propertyPath: m_fontSizeBase
-      value: 50
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 2958262986520364888, guid: 52571f68872914e24837210513edea1d, type: 3}
       propertyPath: m_VerticalAlignment
