@@ -93,16 +93,25 @@ title: noFriends
 ---
 Elaborate.
 // string displayText, string nextNode, float delay, float duration, float x, float y, float z
-<<DialogueOption "Game Manager" "Being a working adult is lonely, man." "humanLife" 0 3 30 65 -30>>
-<<DialogueOption "Game Manager" "I think friends are cool." "humanLife" 0.5 3 30 45 -30>>
-<<DialogueOption "Game Manager" "I don't know, but it's expected, right?" "humanLife" 0 3 -25 65 -30 >> // apathy + 1
-<<DialogueOption "Game Manager" "I had a lot, but I didn't treasure them." "humanLife" 0.5 3 -25 45 -30>> // truth + 1
-<<DialogueOption "Game Manager" "I could've had more connections" "humanLife" 3.5 3 30 65 -30>> 
-<<DialogueOption "Game Manager" "I think I missed out" "humanLife" 4 3 30 45 -30>>
-<<DialogueOption "Game Manager" "It's easier to get away with things" "humanLife" 4 3 -25 45 -30>> // serial killer + 1
+
+// topL
+<<DialogueOption "Game Manager" "I don't know, but it's expected, right?" "humanLife" 0 3 -25 85 -30 >> // apathy + 1
+
+//topR
+<<DialogueOption "Game Manager" "Being a working adult is lonely, man." "humanLife" 1.5 5 45 85 -30>>
+<<DialogueOption "Game Manager" "I could've had more connections" "humanLife" 8 3 45 85 -30>> 
+
+//botL
+<<DialogueOption "Game Manager" "I had a lot, but I didn't treasure them." "humanLife" 2 3 -25 55 -30>> // truth + 1
+<<DialogueOption "Game Manager" "It's easier to get away with things" "humanLife" 6.5 3 -25 55 -30>> // serial killer + 1
+
+//botR
+<<DialogueOption "Game Manager" "I think friends are cool." "humanLife" 0.5 3 45 55 -30>>
+<<DialogueOption "Game Manager" "I think I missed out" "humanLife" 5 3 60 55 -30>>
+
 <<wait 8>>
 
-<<jump humanLife>>
+// <<jump humanLife>>
 ===
 
 title: humanLife
