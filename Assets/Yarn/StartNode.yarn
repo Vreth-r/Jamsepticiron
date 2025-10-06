@@ -1,5 +1,6 @@
 ﻿title: StartNode
 ---
+<<FadeIn "Game Manager" 1>>
 <<PlayLoop "Game Manager" "CLOCK_TICK">>
 <<ChangeFont "Game Manager" "death">>
 <<wait 2>>
@@ -427,8 +428,6 @@ You deserve this.
 
 title: serialKillerEnding
 ---
-
-// truck ending
-
+<<FadeToScene "Game Manager" "Snowy">>
 <<stop>>
 ===
