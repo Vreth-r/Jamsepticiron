@@ -19,6 +19,8 @@
 <<DialogueOption "Game Manager" "What is happening?" "explain" 0.5 8 "top" "L">>
 <<DialogueOption "Game Manager" "Where am I?" "explain" 2 7 "top" "R">>
 <<wait 13>>
+<<PlaySFX "Game Manager" "SPEAK_DEATH">>
+<<wait 0.5>>
 Speak.
 <<PlayAnim "Game Manager" "DeathHands" "impatient" true 2>>
 <<DialogueOption "Game Manager" "What is happening?" "explain" 0.5 9 "mid" "R">>
@@ -52,6 +54,9 @@ You're cooked cuh.
 title: explain
 ---
 <<PlayAnim "Game Manager" "DeathHands" "pen tap" true 2>>
+<<PlaySFX "Game Manager" "EXPLAIN_DEATH">>
+<<wait 0.5>>
+<<SetAdvanceDelay "Game Manager" 3>>
 You are at an interview, to see if you are a good fit.
 <<DialogueOption "Game Manager" "What if I'm not?" "whatIfImNot" 2 6 "top" "L">>
 <<DialogueOption "Game Manager" "A job? But I already have a job." "alreadyHaveAJob" 1 8 "top" "R">>
@@ -61,6 +66,9 @@ You are at an interview, to see if you are a good fit.
 
 title: whatIfImNot
 ---
+<<PlaySFX "Game Manager" "SHAME_DEATH">>
+<<wait 0.5>>
+<<SetAdvanceDelay "Game Manager" 1.5>>
 That would be a shame.
 <<Wait "form" 1>>
 <<stop>>
@@ -68,6 +76,9 @@ That would be a shame.
 
 title: alreadyHaveAJob
 ---
+<<PlaySFX "Game Manager" "NOT_ANYMORE_DEATH">>
+<<wait 0.5>>
+<<SetAdvanceDelay "Game Manager" 1.5>>
 Not anymore.
 <<Wait "form" 1>>
 <<stop>>
@@ -75,9 +86,11 @@ Not anymore.
 
 title: form
 ---
-You have five minutes to fill this out.
+<<PlaySFX "Game Manager" "FIVE_MINS_DEATH">>
 <<wait 0.5>>
-I don't suggest lying.
+<<SetAdvanceDelay "Game Manager" 2.5>>
+You have five minutes to fill this out,
+I suggest you tell the truth.
 <<wait 1>>
 <<DialogueOption "Game Manager" "What if I don't fill this out" "whatIfIDont" 2 6 "top" "R">>
 <<DialogueOption "Game Manager" "Who are you?" "whoAreYou" 3 3 "bot" "L">>
@@ -89,6 +102,9 @@ I don't suggest lying.
 title: whatIfIDont
 ---
 <<PlayAnim "Game Manager" "DeathHands" "impatient" true 2>>
+<<PlaySFX "Game Manager" "PAGE_EMPTY_DEATH">>
+<<wait 0.5>>
+<<SetAdvanceDelay "Game Manager" 3>>
 Then the page stays empty.
 <<Wait "strengths" 1>>
 <<stop>>
@@ -97,14 +113,20 @@ Then the page stays empty.
 title: whoAreYou
 ---
 <<PlayAnim "Game Manager" "DeathHands" "impatient" true 2>>
-That's not what's important.
+<<PlaySFX "Game Manager" "NOT_IMPORTANT_DEATH">>
+<<wait 0.5>>
+<<SetAdvanceDelay "Game Manager" 2.5>>
+That's not important.
 <<Wait "strengths" 1>>
 <<stop>>
 ===
 
 title: strengths
 ---
-What are your strengths?
+<<PlaySFX "Game Manager" "STRENGTHS_DEATH">>
+<<wait 0.5>>
+<<SetAdvanceDelay "Game Manager" 3>>
+So, what's your greatest strength?
 <<DialogueOption "Game Manager" "I'm great at washing the dishes." "unsuccessful" 0.5 8 "top" "R">>
 <<DialogueOption "Game Manager" "I don't have any and don't want any." "unsuccessful" 1 9 "top" "L" "Apathy" 1>> // apathy + 1
 <<DialogueOption "Game Manager" "I am a team player." "unsuccessful" 0.5 8 "bot" "R">> 
@@ -119,6 +141,9 @@ What are your strengths?
 title: unsuccessful
 ---
 <<PlayAnim "Game Manager" "DeathHands" "writing" true 2>>
+<<PlaySFX "Game Manager" "UNSUCCESSFUL_DEATH">>
+<<wait 0.5>>
+<<SetAdvanceDelay "Game Manager" 3>>
 Why were you unsuccessful?
 
 <<DialogueOption "Game Manager" "Nuh uh, I'm super successful." "humanLife" 1.5 6 "top" "L">>
@@ -138,6 +163,9 @@ Why were you unsuccessful?
 title: noFriends
 ---
 <<PlayAnim "Game Manager" "DeathHands" "pen tap" true 2>>
+<<PlaySFX "Game Manager" "ELABORATE_DEATH">>
+<<wait 0.5>>
+<<SetAdvanceDelay "Game Manager" 2>>
 Elaborate.
 <<PlayAnim "Game Manager" "DeathHands" "writing" true 4>>
 // topL
@@ -167,6 +195,9 @@ Elaborate.
 title: humanLife
 ---
 <<PlayAnim "Game Manager" "DeathHands" "impatient" true 5>>
+<<PlaySFX "Game Manager" "HUMAN_LIFE_DEATH">>
+<<wait 0.5>>
+<<SetAdvanceDelay "Game Manager" 5>>
 What is the value of a human life?
 
 // topL
@@ -193,6 +224,9 @@ What is the value of a human life?
 title: hell
 ---
 <<PlayAnim "Game Manager" "DeathHands" "writing" true 4>>
+<<PlaySFX "Game Manager" "GO_TO_HELL_DEATH">>
+<<wait 0.5>>
+<<SetAdvanceDelay "Game Manager" 6>>
 If you were told you were going to hell, how would you feel?
 
 //topL
@@ -217,6 +251,9 @@ If you were told you were going to hell, how would you feel?
 title: wouldUnderstand
 ---
 <<PlayAnim "Game Manager" "DeathHands" "pen tap" true 2>>
+<<PlaySFX "Game Manager" "REGRET_DEATH">>
+<<wait 0.5>>
+<<SetAdvanceDelay "Game Manager" 3>>
 Do you regret your life?
 <<DialogueOption "Game Manager" "Yes, all of it." "pointCalc" 0 3 "top" "R">>
 <<DialogueOption "Game Manager" "No, but I regret the hurt I inflicted." "pointCalc" 3 3 "mid" "R" "Truth" 1>> // truth + 1
@@ -248,7 +285,9 @@ title: pointCalc
 
 title: rememberThem
 ---
-
+<<PlaySFX "Game Manager" "REMEMBER_THEM_DEATH">>
+<<wait 0.5>>
+<<SetAdvanceDelay "Game Manager" 3>>
 Do you remember them?
 
 <<DialogueOption "Game Manager" "Yes." "yesIRemember" 0 3 "top" "L">>
@@ -271,7 +310,10 @@ title: yesIRemember
 title: noIForgor
 ---
 <<PlayAnim "Game Manager" "DeathHands" "impatient" true 3>>
-Are you sure?
+<<PlaySFX "Game Manager" "ARE_YOU_CERTAIN_DEATH">>
+<<wait 0.5>>
+<<SetAdvanceDelay "Game Manager" 3>>
+Are you certain?
 
 <<DialogueOption "Game Manager" "Yes, I'm sure." "mediocrePerformanceEnding" 0 3 "top" "R">>
 <<DialogueOption "Game Manager" "I remember their screams." "confessionCalc" 3 3 "top" "L">> // serial killer + 1
@@ -342,6 +384,9 @@ title: deathFunnie
 <<ChangeFont "Game Manager" "player">>
 player: I think being tortured by immortality would hurt less than seeing the people I hurt again.
 <<ChangeFont "Game Manager" "death">>
+<<PlaySFX "Game Manager" "LAUGH_DEATH">>
+<<wait 0.5>>
+<<SetAdvanceDelay "Game Manager" 3>>
 HA!!
 <<Wait "trueEndingP1" 1>>
 
@@ -353,10 +398,20 @@ title: trueEndingP1
 
 // you got the job yay!
 <<ChangeFont "Game Manager" "death">>
+<<PlaySFX "Game Manager" "PAINFUL_DEATH">>
+<<wait 0.5>>
+<<SetAdvanceDelay "Game Manager" 2>>
 This...
 will be painful.
+<<PlaySFX "Game Manager" "NO_REST_DEATH">>
+<<wait 0.5>>
 You will not rest.
+<<PlaySFX "Game Manager" "LISTEN_DEATH">>
+<<wait 0.5>>
 You will listen.
+<<PlaySFX "Game Manager" "REMEMBER_DEATH">>
+<<wait 0.5>>
+<<SetAdvanceDelay "Game Manager" 3>>
 You will remember. 
 
 <<DialogueOptionSpecific "Game Manager" "And I will feel... everything." "trueEndingP2" 0 3 0 0 -30>>
@@ -379,9 +434,18 @@ title: mediocrePerformanceEnding
 //stormguy doing this
 //The ending where you fall into the void.
 <<ChangeFont "Game Manager" "death">>
-The interview is over, thank you for your time.
-Enjoy your stay.
-
+<<PlaySFX "Game Manager" "INTERVIEW_OVER_DEATH">>
+<<wait 0.5>>
+<<SetAdvanceDelay "Game Manager" 3>>
+The interview is over, 
+<<PlaySFX "Game Manager" "THANK_YOU_DEATH">>
+<<wait 0.5>>
+<<SetAdvanceDelay "Game Manager" 2>>
+thank you for your time.
+<<PlaySFX "Game Manager" "ENJOY_NEXT_DEATH">>
+<<wait 0.5>>
+<<SetAdvanceDelay "Game Manager" 7>>
+I'd tell you to enjoy what comes next, but... you won't.
 <<stop>>
 ===
 
@@ -389,6 +453,9 @@ title: apathyEnding
 ---
 <<ChangeFont "Game Manager" "death">>
 ...
+<<PlaySFX "Game Manager" "APATHY_ENDING_MONOLOGUE_DEATH">>
+<<wait 0.5>>
+<<SetAdvanceDelay "Game Manager" 2>>
 I was like you once. 
 So dismissive of your own existence. 
 Doesn't it get tiring?
@@ -423,6 +490,9 @@ player: Why aren't you saying anything...?
 player: I did this for you...
 
 <<ChangeFont "Game Manager" "death">>
+<<PlaySFX "Game Manager" "SPECIAL_DEATH">>
+<<wait 0.5>>
+<<SetAdvanceDelay "Game Manager" 3>>
 Do you think you're special?
 <<wait 1>>
 You deserve this.

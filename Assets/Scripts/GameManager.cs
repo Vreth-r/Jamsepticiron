@@ -129,7 +129,7 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator ResumeAfterDelay(string nodeName, float delay)
     {
-        Debug.Log($"Stoppin Yarn for {delay} seconds before jumping to '{nodeName}'...");
+        //Debug.Log($"Stoppin Yarn for {delay} seconds before jumping to '{nodeName}'...");
         yield return new WaitForSeconds(delay);
 
         pauseRoutine = null;
@@ -183,7 +183,7 @@ public class GameManager : MonoBehaviour
         {
             StopCoroutine(pauseRoutine);
             pauseRoutine = null;
-            Debug.Log("[PauseAndJump] Coroutine canceled.");
+            //Debug.Log("[PauseAndJump] Coroutine canceled.");
         }
         dr.StartDialogue(nextNode);
     }
@@ -233,6 +233,12 @@ public class GameManager : MonoBehaviour
         {
             SpawnOption(displayText2, nextNode2, delay2, duration2, vertLocation2, horizontalLocation2);
         }
+    }
+
+    [YarnCommand("SetAdvanceDelay")]
+    public void SetAdvanceDelay(float delay)
+    {
+        linePresenter.autoAdvanceDelay = delay;
     }
 
     //************** WORLD YARN *******************\\

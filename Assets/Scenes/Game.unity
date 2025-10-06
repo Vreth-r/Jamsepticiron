@@ -477,6 +477,7 @@ MonoBehaviour:
   dialogueOptionPrefab: {fileID: 5413038516506096579, guid: a7ee48ef9122c74499fac35afb81756e, type: 3}
   dialogueOptionParent: {fileID: 1299739672}
   spotLight: {fileID: 1499969943}
+  skull: {fileID: 0}
   camScript: {fileID: 330585548}
   playerName: 
 --- !u!4 &254412532
@@ -506,7 +507,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53861fa5da648c249912641801e1843d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CursorManager
-  customCursor: {fileID: 2800000, guid: a3d9ed872fdc7484c93556fdd4737864, type: 3}
+  customCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   cursorMode: 0
   toggleCursorAction: {fileID: 637968973241267585, guid: ccc175020b35fdd4caf51e9958645ad6, type: 3}
@@ -3103,6 +3104,72 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 5daa7c68cb2be5343907c37fbd0f71b9, type: 3}
   - name: LIGHT_CLICK_NOBUZZ
     clip: {fileID: 8300000, guid: 4c5cec2d92340164e88e27e91217c954, type: 3}
+  - name: APATHY_ENDING_MONOLOGUE_DEATH
+    clip: {fileID: 8300000, guid: 383867ae6a86cb945abf32e012f4ea8a, type: 3}
+  - name: PRIVILLEDGE_YOU_LOST_DEATH
+    clip: {fileID: 8300000, guid: f985c1f0e71ea39478e9dd629ef3d61e, type: 3}
+  - name: PAINFUL_DEATH
+    clip: {fileID: 8300000, guid: 13d092c025b1d234ea7e04894adc6744, type: 3}
+  - name: NO_REST_DEATH
+    clip: {fileID: 8300000, guid: 17edc47bbf0026b44b4ceaa5015540b8, type: 3}
+  - name: LISTEN_DEATH
+    clip: {fileID: 8300000, guid: 283f218c71ffcb34c96ccadf1b0cfdba, type: 3}
+  - name: REMEMBER_DEATH
+    clip: {fileID: 8300000, guid: 5b9ec011812786149833d772ba8b5827, type: 3}
+  - name: THANK_YOU_DEATH
+    clip: {fileID: 8300000, guid: 8302df038f392a443a9ebd38b96ce1fb, type: 3}
+  - name: LAUGH_DEATH
+    clip: {fileID: 8300000, guid: 79b631cd23d00854f9ec1b20073fd1f6, type: 3}
+  - name: ARE_YOU_CERTAIN_DEATH
+    clip: {fileID: 8300000, guid: 75128009ac8fc2f40a66fd6e84b7144a, type: 3}
+  - name: REGRET_DEATH
+    clip: {fileID: 8300000, guid: 6290972a8d56faf49af6f25ff2704df0, type: 3}
+  - name: REMEMBER_THEM_DEATH
+    clip: {fileID: 8300000, guid: d054999d31519f346892ec8c14c883cd, type: 3}
+  - name: SPECIAL_DEATH
+    clip: {fileID: 8300000, guid: 51796a30a9d5760419491b35e4573e22, type: 3}
+  - name: ELABORATE_DEATH
+    clip: {fileID: 8300000, guid: 3e3bc1a7938c0c2458a6abcd6de27025, type: 3}
+  - name: FINISH_FORM_DEATH
+    clip: {fileID: 8300000, guid: 573fb4301959a424391bb46103e2e36f, type: 3}
+  - name: PLACES_TO_BE_DEATH
+    clip: {fileID: 8300000, guid: 78e12f7fdf1859444a785a6989778166, type: 3}
+  - name: ENJOY_NEXT_DEATH
+    clip: {fileID: 8300000, guid: b2a0cb87a549842489e841595bbd673a, type: 3}
+  - name: GO_TO_HELL_DEATH
+    clip: {fileID: 8300000, guid: 601ba9758838a29499c42b0f267be591, type: 3}
+  - name: NO_DEATH
+    clip: {fileID: 8300000, guid: 46266d4304cf2244abfa7cb1734bd536, type: 3}
+  - name: NOT_ANYMORE_DEATH
+    clip: {fileID: 8300000, guid: d11fd2a502349144bb38b6cc866d9b61, type: 3}
+  - name: SIGN_IT_DEATH
+    clip: {fileID: 8300000, guid: 73bc5e4a0ddabf3448da11334161e840, type: 3}
+  - name: STRENGTHS_DEATH
+    clip: {fileID: 8300000, guid: 8be48eeb31f6fe04da836da0716df2a4, type: 3}
+  - name: SPEAK_DEATH
+    clip: {fileID: 8300000, guid: 6ea81dd518befd04cb792123b14ba8a4, type: 3}
+  - name: FILLED_IN_DEATH
+    clip: {fileID: 8300000, guid: 1bbc20f88177dc94894ecca765a1ac74, type: 3}
+  - name: SHAME_DEATH
+    clip: {fileID: 8300000, guid: 64a45b0eee44bf5418ebd8f554c56cf1, type: 3}
+  - name: NOT_IMPORTANT_DEATH
+    clip: {fileID: 8300000, guid: 9542d08cea11f9b409e06785100b47bd, type: 3}
+  - name: INTERVIEW_OVER_DEATH
+    clip: {fileID: 8300000, guid: 728f46dacabe89644a211869666abe52, type: 3}
+  - name: PAGE_EMPTY_DEATH
+    clip: {fileID: 8300000, guid: 92ee89e7c5f02be418a1d71073a35823, type: 3}
+  - name: HUMAN_LIFE_DEATH
+    clip: {fileID: 8300000, guid: f48cc060e5d507743aa30a4b107db6b2, type: 3}
+  - name: UNSUCCESSFUL_DEATH
+    clip: {fileID: 8300000, guid: fda4b9fa21685f541a5bdf67c2a44bcd, type: 3}
+  - name: DESERVE_THIS_DEATH
+    clip: {fileID: 8300000, guid: addaee28cdaf47d46a596a5ddfe4b6d6, type: 3}
+  - name: EXPLAIN_DEATH
+    clip: {fileID: 8300000, guid: bb1c6b7f9a28cbf4f8f8c8890141dd6e, type: 3}
+  - name: FIVE_MINS_DEATH
+    clip: {fileID: 8300000, guid: 0b8ea9a24a5220840b56f71248c35311, type: 3}
+  - name: TIMES_UP_DEATH
+    clip: {fileID: 8300000, guid: e6b31d1b78c169741aa6dcda81ecb705, type: 3}
 --- !u!1 &1964085050 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9078442560890639579, guid: 52571f68872914e24837210513edea1d, type: 3}
