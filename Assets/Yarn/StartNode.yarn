@@ -1,7 +1,15 @@
 ﻿title: StartNode
 ---
-
+<<PlayLoop "Game Manager" "CLOCK_TICK">>
 <<ChangeFont "Game Manager" "death">>
+<<wait 2>>
+<<PlayAnim "Game Manager" "DeathHands" "click-light">>
+<<wait 1.5>>
+<<PlaySFX "Game Manager" "LIGHT_CLICK_NOBUZZ">>
+<<LightMode "Game Manager" true>>
+<<PlayLoop "Game Manager" "BUZZ_LOOP">>
+<<wait 1.7>>
+<<PlayAnim "Game Manager" "DeathHands" "idle">>
 
 
 <<wait 1>>
@@ -11,6 +19,7 @@
 <<DialogueOption "Game Manager" "Where am I?" "explain" 2 7 "top" "R">>
 <<wait 13>>
 Speak.
+<<PlayAnim "Game Manager" "DeathHands" "impatient" true 2>>
 <<DialogueOption "Game Manager" "What is happening?" "explain" 0.5 9 "mid" "R">>
 <<DialogueOption "Game Manager" "Where am I?" "explain" 0.5 8 "top" "L">>
 <<Wait "form" 14>>
@@ -34,44 +43,37 @@ AAAAAAAAAAAAAAAAAAA!
 title: testNode2
 ---
 
-You're cooked cuh
+You're cooked cuh.
 
 <<stop>>
 ===
 
 title: explain
 ---
-
+<<PlayAnim "Game Manager" "DeathHands" "pen tap" true 2>>
 You are at an interview, to see if you are a good fit.
 <<DialogueOption "Game Manager" "What if I'm not?" "whatIfImNot" 2 6 "top" "L">>
 <<DialogueOption "Game Manager" "A job? But I already have a job." "alreadyHaveAJob" 1 8 "top" "R">>
 <<Wait "form" 10>>
-
 <<stop>>
 ===
 
 title: whatIfImNot
 ---
-
-
 That would be a shame.
 <<Wait "form" 1>>
-
 <<stop>>
 ===
 
 title: alreadyHaveAJob
 ---
-
 Not anymore.
 <<Wait "form" 1>>
-
 <<stop>>
 ===
 
 title: form
 ---
-
 You have five minutes to fill this out.
 I don't suggest lying.
 <<wait 1>>
@@ -84,38 +86,37 @@ I don't suggest lying.
 
 title: whatIfIDont
 ---
-
+<<PlayAnim "Game Manager" "DeathHands" "impatient" true 2>>
 Then the page stays empty.
 <<Wait "strengths" 1>>
-
 <<stop>>
 ===
 
 title: whoAreYou
 ---
-
+<<PlayAnim "Game Manager" "DeathHands" "impatient" true 2>>
 That's not what's important.
 <<Wait "strengths" 1>>
-
 <<stop>>
 ===
 
 title: strengths
 ---
-
 What are your strengths?
 <<DialogueOption "Game Manager" "I'm great at washing the dishes." "unsuccessful" 0.5 8 "top" "R">>
 <<DialogueOption "Game Manager" "I don't have any and don't want any." "unsuccessful" 1 9 "top" "L" "Apathy" 1>> // apathy + 1
 <<DialogueOption "Game Manager" "I am a team player." "unsuccessful" 0.5 8 "bot" "R">> 
 <<DialogueOption "Game Manager" "I am really good at customer service." "unsuccessful" 3 2 "bot" "L">>
-<<Wait "unsuccessful" 11>>
+<<wait 7>>
+<<PlayAnim "Game Manager" "DeathHands" "writing" true 2>>
+<<Wait "unsuccessful" 4>>
 
 <<stop>>
 ===
 
 title: unsuccessful
 ---
-
+<<PlayAnim "Game Manager" "DeathHands" "writing" true 2>>
 Why were you unsuccessful?
 
 <<DialogueOption "Game Manager" "Nuh uh, I'm super successful." "humanLife" 1.5 6 "top" "L">>
@@ -125,16 +126,18 @@ Why were you unsuccessful?
 <<DialogueOption "Game Manager" "Don't know, don't care" "humanLife" 1.3 5.7 "bot" "R" "Apathy" 1>> // apathy + 1
 <<DialogueOption "Game Manager" "I could've been better to the people who loved me..." "humanLife" 9 6 "mid" "L" "Truth" 1>> // truth + 1
 <<DialogueOption "Game Manager" "I didn't plan far enough ahead." "humanLife" 10 7 "mid" "R" "Killer" 1>> // serial killer + 1
-<<Wait "humanLife" 21>>
+<<wait 7>>
+<<PlayAnim "Game Manager" "DeathHands" "writing" true 2>>
+<<Wait "humanLife" 14>>
 
 <<stop>>
 ===
 
 title: noFriends
 ---
-
+<<PlayAnim "Game Manager" "DeathHands" "pen tap" true 2>>
 Elaborate.
-
+<<PlayAnim "Game Manager" "DeathHands" "writing" true 4>>
 // topL
 <<DialogueOption "Game Manager" "I don't know, but it's expected, right?" "humanLife" 0 6 "top" "L" "Apathy" 1>> // apathy + 1
 
@@ -151,15 +154,17 @@ Elaborate.
 //botR
 <<DialogueOption "Game Manager" "I think friends are cool." "humanLife" 0.5 6 "bot" "R">>
 <<DialogueOption "Game Manager" "I think I missed out" "humanLife" 9.5 6 "bot" "R">>
-
-<<Wait "humanLife" 19>>
+<<wait 5>>
+<<PlayAnim "Game Manager" "DeathHands" "pen tap" true 2>>
+<<PlayAnim "Game Manager" "DeathHands" "writing" true 4>>
+<<Wait "humanLife" 14>>
 
 <<stop>>
 ===
 
 title: humanLife
 ---
-
+<<PlayAnim "Game Manager" "DeathHands" "impatient" true 5>>
 What is the value of a human life?
 
 // topL
@@ -176,14 +181,16 @@ What is the value of a human life?
 //midR
 <<DialogueOption "Game Manager" "Nothing, humans are worthless." "hell" 4 3 "mid" "R" "Apathy" 1>> // apathy + 1
 <<DialogueOption "Game Manager" "Did they have life insurance?" "hell" 7 2 "mid" "R" "Killer" 1>> // serial killer + 1
-<<Wait "hell" 12>>
+<<wait 4>>
+<<PlayAnim "Game Manager" "DeathHands" "impatient" true 2>>
+<<Wait "hell" 10>>
 
 <<stop>>
 ===
 
 title: hell
 ---
-
+<<PlayAnim "Game Manager" "DeathHands" "writing" true 4>>
 If you were told you were going to hell, how would you feel?
 
 //topL
@@ -198,14 +205,16 @@ If you were told you were going to hell, how would you feel?
 <<DialogueOption "Game Manager" "It would be worth it." "pointCalc" 4.5 3 "mid" "L" "Killer" 1>> // serial killer + 1
 //midR
 <<DialogueOption "Game Manager" "I would understand" "wouldUnderstand" 4.5 3 "mid" "R" "Truth" 1>> // truth + 1
-<<Wait "pointCalc" 12>>
+<<wait 5>>
+<<PlayAnim "Game Manager" "DeathHands" "impatient" true 2>>
+<<Wait "pointCalc" 10>>
 
 <<stop>>
 ===
 
 title: wouldUnderstand
 ---
-
+<<PlayAnim "Game Manager" "DeathHands" "pen tap" true 2>>
 Do you regret your life?
 <<DialogueOption "Game Manager" "Yes, all of it." "pointCalc" 0 3 "top" "R">>
 <<DialogueOption "Game Manager" "No, but I regret the hurt I inflicted." "pointCalc" 3 3 "mid" "R" "Truth" 1>> // truth + 1
@@ -217,7 +226,7 @@ Do you regret your life?
 
 title: pointCalc
 ---
-
+<<PlayAnim "Game Manager" "DeathHands" "pen tap" true 4>>
 //At this point, the player should have answered 6 questions.
 
 //You can earn, in total, 4 apathy points OR 
@@ -356,14 +365,14 @@ You will remember.
 title: trueEndingP2
 ---
 
-// play the ending animation yayyyy
+// play the shaking hands animation yayyyy
 
 <<stop>>
 ===
 
 title: mediocrePerformanceEnding
 ---
-
+//stormguy doing this
 //The ending where you fall into the void.
 <<ChangeFont "Game Manager" "death">>
 The interview is over, thank you for your time.
@@ -374,7 +383,6 @@ Enjoy your stay.
 
 title: apathyEnding
 ---
-
 <<ChangeFont "Game Manager" "death">>
 ...
 I was like you once. 
@@ -387,8 +395,7 @@ feeling nothing more than numbing misery.
 Here,
 let me give you a feeling worth screaming for.
 
-// play animation of him fuckin disintegrating
-
+// play animation of him rotting hands
 
 <<stop>>
 ===
@@ -415,14 +422,13 @@ Do you think you're special?
 <<wait 1>>
 You deserve this.
 <<Wait "serialKillerEnding" 3>>
-
 <<stop>>
 ===
 
 title: serialKillerEnding
 ---
 
-// he gets hit by 7 trucks and dies LA MAO!
+// truck ending
 
 <<stop>>
 ===

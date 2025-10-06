@@ -28,6 +28,8 @@ public class GameManager : MonoBehaviour
     public Camera mainCam;
     public GameObject dialogueOptionPrefab;
     public Transform dialogueOptionParent;
+    public GameObject spotLight;
+    private Light spotLightComp;
 
     [Header("Script Hooks")]
     public CameraController camScript;
@@ -52,6 +54,7 @@ public class GameManager : MonoBehaviour
         endingVars.Add("Apathy", 0);
         endingVars.Add("Truth", 0);
         endingVars.Add("Killer", 0);
+        spotLightComp = spotLight.GetComponent<Light>();
     }
 
     void Start()
@@ -113,7 +116,7 @@ public class GameManager : MonoBehaviour
     public static void Wait(string nextNode, float duration)
     {
         // Stop the current dialogue entirely
-        //GameManager.Instance.dr.Stop();
+        GameManager.Instance.dr.Stop();
 
         // Start coroutine to wait before resuming
         if (GameManager.Instance.pauseRoutine == null)
@@ -228,6 +231,75 @@ public class GameManager : MonoBehaviour
         {
             SpawnOption(displayText2, nextNode2, delay2, duration2, vertLocation2, horizontalLocation2);
         }
+    }
+
+    //************** WORLD YARN *******************\\
+    [YarnCommand("LightMode")]
+    public void LightMode(bool status)
+    {
+        spotLightComp.enabled = status;
+        Debug.Log(status);
+    }
+
+    //************** ANIMATION YARN ****************\\
+    [YarnCommand("PlayAnim")]
+    public void PlayAnimation(string objectName, string animName, bool loop = false, float duration = -1f)
+    {
+        AnimationManager.Instance?.PlayAnimation(objectName, animName, loop, duration);
+    }
+
+    [YarnCommand("StopAnim")]
+    public void StopAnimation(string objectName, string animName)
+    {
+        AnimationManager.Instance?.StopAnimation(objectName, animName);
+    }
+    //************** AUDIO YARN ********************\\
+    [YarnCommand("PlaySFX")]
+    public void PlaySFX(string sfxName)
+    {
+        AudioManager.Instance?.PlaySFX(sfxName);
+    }
+
+    [YarnCommand("StopAllSFX")]
+    public void StopAllSFX()
+    {
+        var src = AudioManager.Instance?.GetComponent<AudioSource>();
+        if (src != null)
+            src.Stop();
+    }
+
+    [YarnCommand("PlaySFXAt")]
+    public void PlaySFXAt(string sfxName, string targetName)
+    {
+        GameObject target = GameObject.Find(targetName);
+        if (target == null)
+        {
+            Debug.LogWarning($"[PlaySFXAt] Could not find GameObject '{targetName}'.");
+            return;
+        }
+
+        if (AudioManager.Instance == null) return;
+        var clip = AudioManager.Instance.GetClip(sfxName);
+        if (clip != null)
+            AudioSource.PlayClipAtPoint(clip, target.transform.position);
+    }
+
+    [YarnCommand("PlayLoop")]
+    public void PlayLoop(string sfxName, float volume = 1f)
+    {
+        AudioManager.Instance?.PlayLoop(sfxName, volume);
+    }
+
+    [YarnCommand("StopLoop")]
+    public void StopLoop(string sfxName)
+    {
+        AudioManager.Instance?.StopLoop(sfxName);
+    }
+
+    [YarnCommand("StopAllLoops")]
+    public void StopAllLoops()
+    {
+        AudioManager.Instance?.StopAllLoops();
     }
 
     private IEnumerator WaitRoutine(float seconds)
