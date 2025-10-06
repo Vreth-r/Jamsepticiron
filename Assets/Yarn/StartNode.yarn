@@ -75,6 +75,7 @@ Not anymore.
 title: form
 ---
 You have five minutes to fill this out.
+<<wait 0.5>>
 I don't suggest lying.
 <<wait 1>>
 <<DialogueOption "Game Manager" "What if I don't fill this out" "whatIfIDont" 2 6 "top" "R">>
@@ -268,7 +269,7 @@ title: yesIRemember
 
 title: noIForgor
 ---
-
+<<PlayAnim "Game Manager" "DeathHands" "impatient" true 3>>
 Are you sure?
 
 <<DialogueOption "Game Manager" "Yes, I'm sure." "mediocrePerformanceEnding" 0 3 "top" "R">>
@@ -299,6 +300,7 @@ title: confessionCalc
 
 title: dontWantRemember
 ---
+<<PlayAnim "Game Manager" "DeathHands" "pen tap" true 3>>
 
 <<ChangeFont "Game Manager" "player">>
 player: But I... do remember. 
@@ -365,7 +367,8 @@ You will remember.
 title: trueEndingP2
 ---
 
-// play the shaking hands animation yayyyy
+<<PlayAnim "Game Manager" "DeathHands" "shake hands" true>>
+
 
 <<stop>>
 ===
@@ -395,7 +398,8 @@ feeling nothing more than numbing misery.
 Here,
 let me give you a feeling worth screaming for.
 
-// play animation of him rotting hands
+<<PlayAnim "Game Manager" "DeathHands" "rotting hands" true >>
+
 
 <<stop>>
 ===
@@ -427,8 +431,6 @@ You deserve this.
 
 title: serialKillerEnding
 ---
-
-// truck ending
-
+// scene transition
 <<stop>>
 ===
