@@ -1,7 +1,12 @@
 ﻿title: StartNode
 ---
-
+<<PlayLoop "Game Manager" "CLOCK_TICK">>
 <<ChangeFont "Game Manager" "death">>
+<<wait 2>>
+<<PlaySFX "Game Manager" "LIGHT_CLICK_BUZZ">>
+<<wait 1.3>>
+<<LightMode "Game Manager" true>>
+<<PlayLoop "Game Manager" "BUZZ_LOOP">>
 
 
 <<wait 1>>
@@ -34,7 +39,7 @@ AAAAAAAAAAAAAAAAAAA!
 title: testNode2
 ---
 
-You're cooked cuh
+You're cooked cuh.
 
 <<stop>>
 ===
@@ -71,7 +76,6 @@ Not anymore.
 
 title: form
 ---
-
 You have five minutes to fill this out.
 I don't suggest lying.
 <<wait 1>>
