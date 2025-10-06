@@ -31,6 +31,7 @@ public class GameManager : MonoBehaviour
     public Transform dialogueOptionParent;
     public GameObject spotLight;
     private Light spotLightComp;
+    public GameObject skull;
 
     [Header("Script Hooks")]
     public CameraController camScript;
@@ -242,6 +243,12 @@ public class GameManager : MonoBehaviour
         Debug.Log(status);
     }
 
+    [YarnCommand("SkullToggle")]
+    public void SkullToggle(bool toggle)
+    {
+        skull.SetActive(toggle);
+    }
+
     [YarnCommand("FadeToScene")]
     public void FadeToScene(string sceneName)
     {
@@ -259,7 +266,7 @@ public class GameManager : MonoBehaviour
     {
         SceneTransitionManager.Instance?.FadeIn(duration);
     }
-    
+
     //************** ANIMATION YARN ****************\\
     [YarnCommand("PlayAnim")]
     public void PlayAnimation(string objectName, string animName, bool loop = false, float duration = -1f)
