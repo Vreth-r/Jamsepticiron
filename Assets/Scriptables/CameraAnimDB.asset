@@ -17,5 +17,5 @@ MonoBehaviour:
     targetCoords: {x: 12, y: 75, z: -110}
     targetRotation: {x: 10, y: 0, z: 0}
   - id: ContractView
-    targetCoords: {x: 12, y: 60, z: -59}
+    targetCoords: {x: 12, y: 65, z: -59}
     targetRotation: {x: 80, y: 0, z: 0}

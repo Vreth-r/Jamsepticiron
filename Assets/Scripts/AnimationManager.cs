@@ -95,7 +95,7 @@ public class AnimationManager : MonoBehaviour
             if (loop)
                 animator.SetBool(animName + "_Loop", false);
 
-            animator.Play("Idle"); // default idle
+            animator.Play("idle"); // default idle
         }
 
         runningCoroutines.Remove(key);
