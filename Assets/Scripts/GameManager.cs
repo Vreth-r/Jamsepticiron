@@ -7,6 +7,7 @@ using TMPro;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Collections;
+using UnityEngine.SceneManagement;
 
 
 // for simplicity this script will also function as the yarn commander
@@ -241,6 +242,24 @@ public class GameManager : MonoBehaviour
         Debug.Log(status);
     }
 
+    [YarnCommand("FadeToScene")]
+    public void FadeToScene(string sceneName)
+    {
+        SceneTransitionManager.Instance?.FadeToScene(sceneName);
+    }
+
+    [YarnCommand("FadeOut")]
+    public void FadeOut(float duration = 1f)
+    {
+        SceneTransitionManager.Instance?.FadeOut(duration);
+    }
+
+    [YarnCommand("FadeIn")]
+    public void FadeIn(float duration = 1f)
+    {
+        SceneTransitionManager.Instance?.FadeIn(duration);
+    }
+    
     //************** ANIMATION YARN ****************\\
     [YarnCommand("PlayAnim")]
     public void PlayAnimation(string objectName, string animName, bool loop = false, float duration = -1f)
