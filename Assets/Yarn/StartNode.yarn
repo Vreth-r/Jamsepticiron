@@ -432,6 +432,7 @@ You deserve this.
 
 title: serialKillerEnding
 ---
+<<FadeToScene "Game Manager" "Snowy">>
 // scene transition
 <<stop>>
 ===
