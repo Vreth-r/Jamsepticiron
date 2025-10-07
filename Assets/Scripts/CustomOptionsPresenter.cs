@@ -3,8 +3,11 @@ using UnityEngine;
 using Yarn.Unity.Attributes;
 using TMPro;
 using Yarn.Unity;
+using System;
 using System.Threading;
+using System.Threading.Tasks;
 
+#nullable enable
 public class CustomOptionsPresenter : DialoguePresenterBase
 {
     // ripped from OptionsPresenter
@@ -13,31 +16,10 @@ public class CustomOptionsPresenter : DialoguePresenterBase
 
     [MustNotBeNull]
     [SerializeField] OptionItem? optionViewPrefab;
+    public Transform? optionViewParent;
 
     // A cached pool of OptionView objects so that we can reuse them
     List<OptionItem> optionViews = new List<OptionItem>();
-
-    [Space]
-    [SerializeField] bool showsLastLine;
-
-    [ShowIf(nameof(showsLastLine))]
-    [Indent]
-    [MustNotBeNullWhen(nameof(showsLastLine))]
-    [SerializeField] TextMeshProUGUI? lastLineText;
-
-    [ShowIf(nameof(showsLastLine))]
-    [Indent]
-    [SerializeField] GameObject? lastLineContainer;
-
-    [ShowIf(nameof(showsLastLine))]
-    [Indent]
-    [SerializeField] TextMeshProUGUI? lastLineCharacterNameText;
-
-    [ShowIf(nameof(showsLastLine))]
-    [Indent]
-    [SerializeField] GameObject? lastLineCharacterNameContainer;
-
-    LocalizedLine? lastSeenLine;
 
     /// <summary>
     /// Controls whether or not to display options whose <see
@@ -89,15 +71,6 @@ public class CustomOptionsPresenter : DialoguePresenterBase
             canvasGroup.interactable = false;
             canvasGroup.blocksRaycasts = false;
         }
-
-        if (lastLineContainer == null && lastLineText != null)
-        {
-            lastLineContainer = lastLineText.gameObject;
-        }
-        if (lastLineCharacterNameContainer == null && lastLineCharacterNameText != null)
-        {
-            lastLineCharacterNameContainer = lastLineCharacterNameText.gameObject;
-        }
     }
 
     /// <summary>
@@ -130,12 +103,19 @@ public class CustomOptionsPresenter : DialoguePresenterBase
     /// <returns>A completed task.</returns>
     public override YarnTask RunLineAsync(LocalizedLine line, LineCancellationToken token)
     {
-        if (showsLastLine)
-        {
-            lastSeenLine = line;
-        }
         return YarnTask.CompletedTask;
     }
+
+    public static T ParseValue<T>(string input)
+    {
+        var parts = input.Split(':', 2);
+        if (parts.Length < 2)
+            Debug.LogError("Input must be in the format 'parameter:value'.");
+
+        string valuePart = parts[1].Trim();
+        return (T)Convert.ChangeType(valuePart, typeof(T));
+    }
+
     public override async YarnTask<DialogueOption?> RunOptionsAsync(DialogueOption[] dialogueOptions, CancellationToken cancellationToken)
     {
         // If we don't already have enough option views, create more
@@ -157,6 +137,7 @@ public class CustomOptionsPresenter : DialoguePresenterBase
         {
             await YarnTask.WaitUntilCanceled(completionCancellationSource.Token);
 
+            // SET TO AXE
             if (cancellationToken.IsCancellationRequested == true)
             {
                 // The overall cancellation token was fired, not just our
@@ -169,22 +150,24 @@ public class CustomOptionsPresenter : DialoguePresenterBase
             }
         }
 
+        // SET TO AXE
         // Start waiting 
         CancelSourceWhenDialogueCancelled().Forget();
 
         for (int i = 0; i < dialogueOptions.Length; i++)
         {
-            var optionView = optionViews[i];
-            var option = dialogueOptions[i];
+            // for all the options
+            var optionView = optionViews[i]; // get its option view
+            var option = dialogueOptions[i]; // get the option
 
             if (option.IsAvailable == false && showUnavailableOptions == false)
             {
                 // option is unavailable, skip it
                 continue;
             }
-
+            // else
             optionView.gameObject.SetActive(true);
-            optionView.Option = option;
+            optionView.Option = option; // set the option to the view
 
             optionView.OnOptionSelected = selectedOptionCompletionSource;
             optionView.completionToken = completionCancellationSource.Token;
@@ -225,71 +208,26 @@ public class CustomOptionsPresenter : DialoguePresenterBase
             optionViews[optionIndexToSelect].Select();
         }
 
-        // Update the last line, if one is configured
-        if (lastLineContainer != null)
-        {
-            if (lastSeenLine != null && showsLastLine)
-            {
-                // if we have a last line character name container
-                // and the last line has a character then we show the nameplate
-                // otherwise we turn off the nameplate
-                var line = lastSeenLine.Text;
-                if (lastLineCharacterNameContainer != null)
-                {
-                    if (string.IsNullOrWhiteSpace(lastSeenLine.CharacterName))
-                    {
-                        lastLineCharacterNameContainer.SetActive(false);
-                    }
-                    else
-                    {
-                        line = lastSeenLine.TextWithoutCharacterName;
-                        lastLineCharacterNameContainer.SetActive(true);
-                        if (lastLineCharacterNameText != null)
-                        {
-                            lastLineCharacterNameText.text = lastSeenLine.CharacterName;
-                        }
-                    }
-                }
-                else
-                {
-                    line = lastSeenLine.TextWithoutCharacterName;
-                }
-
-                var lineText = line.Text;
-                // if the line was tagged with the TruncateLastLineMarkupName marker we want to clean that up before display
-                if (line.TryGetAttributeWithName(TruncateLastLineMarkupName, out var markup))
-                {
-                    // we get the substring of 0 -> markup position
-                    // and replace that range with ...
-                    var end = lineText.Substring(markup.Position);
-                    lineText = "..." + end;
-                }
-
-                if (lastLineText != null)
-                {
-                    lastLineText.text = lineText;
-                }
-
-                lastLineContainer.SetActive(true);
-            }
-            else
-            {
-                lastLineContainer.SetActive(false);
-            }
-        }
-
         if (useFadeEffect && canvasGroup != null)
         {
             // fade up the UI now
             await Effects.FadeAlphaAsync(canvasGroup, 0, 1, fadeUpDuration, cancellationToken);
+            // ^ dont really need to do that because the option views are instantiated under a different canvas
+        }
+
+        foreach (var view in optionViews)
+        {
+            _ = HandleOptionLifecycleAsync(view, cancellationToken); // fire and forget each option
         }
 
         // allow interactivity and wait for an option to be selected
+        /*
         if (canvasGroup != null)
         {
             canvasGroup.interactable = true;
             canvasGroup.blocksRaycasts = true;
         }
+        */
 
         // Wait for a selection to be made, or for the task to be completed.
         var completedTask = await selectedOptionCompletionSource.Task;
@@ -325,22 +263,80 @@ public class CustomOptionsPresenter : DialoguePresenterBase
         return completedTask;
     }
 
-    private OptionItem CreateNewOptionView()
+    private async Task HandleOptionLifecycleAsync(OptionItem view, CancellationToken cancellationToken)
+    {
+        try
         {
-            var optionView = Instantiate(optionViewPrefab);
+            float delay = ParseValue<float>(view.Option.Line.Metadata[0]);
+            float duration = ParseValue<float>(view.Option.Line.Metadata[1]);
+            string vPos = ParseValue<string>(view.Option.Line.Metadata[2]);
+            string hPos = ParseValue<string>(view.Option.Line.Metadata[3]);
 
-            var targetTransform = canvasGroup != null ? canvasGroup.transform : this.transform;
+            // Wait before showing
+            await Task.Delay(TimeSpan.FromSeconds(delay), cancellationToken);
 
-            if (optionView == null)
+            // Position setup
+            RectTransform rect = view.gameObject.GetComponent<RectTransform>();
+            Vector2 anchoredPos = Vector2.zero;
+
+            // Basic position mapping – adjust as needed
+            switch (vPos.ToLower())
             {
-                throw new System.InvalidOperationException($"Can't create new option view: {nameof(optionView)} is null");
+                case "top": anchoredPos.y = 85f; break;
+                case "middle": anchoredPos.y = 65f; break;
+                case "bottom": anchoredPos.y = 55f; break;
+            }
+            switch (hPos.ToLower())
+            {
+                case "left": anchoredPos.x = -25f; break;
+                case "center": anchoredPos.x = 0f; break;
+                case "right": anchoredPos.x = 45f; break;
             }
 
-            optionView.transform.SetParent(targetTransform.transform, false);
-            optionView.transform.SetAsLastSibling();
-            optionView.gameObject.SetActive(false);
+            rect.anchoredPosition = anchoredPos;
 
-            return optionView;
+            // Fade in
+            CanvasGroup group = view.gameObject.GetComponent<CanvasGroup>();
+            await Effects.FadeAlphaAsync(group, 0f, 1f, fadeUpDuration, cancellationToken);
+
+            // Wait for duration or cancellation
+            try
+            {
+                await Task.Delay(TimeSpan.FromSeconds(duration), cancellationToken);
+            }
+            catch (TaskCanceledException) { /* option skipped early */ }
+
+            // Fade out
+            await Effects.FadeAlphaAsync(group, 1f, 0f, fadeDownDuration, cancellationToken);
+
+            // Optional: disable raycast after fade-out
+            group.blocksRaycasts = false;
+            group.interactable = false;
         }
+        catch (TaskCanceledException)
+        {
+            // Cancel gracefully — no exceptions in console spam
+        }
+        catch (System.Exception ex)
+        {
+            Debug.LogWarning($"Error handling dialogue option: {ex}");
+        }
+    }
+
+    private OptionItem CreateNewOptionView()
+    {
+        var optionView = Instantiate(optionViewPrefab);
+
+        if (optionView == null)
+        {
+            throw new System.InvalidOperationException($"Can't create new option view: {nameof(optionView)} is null");
+        }
+
+        optionView.transform.SetParent(optionViewParent, false);
+        optionView.transform.SetAsLastSibling();
+        optionView.gameObject.SetActive(false);
+
+        return optionView;
+    }
 }
 

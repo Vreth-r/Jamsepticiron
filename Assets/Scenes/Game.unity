@@ -1945,7 +1945,7 @@ Light:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1499969943}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 11
   m_Type: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -2766,7 +2766,7 @@ PrefabInstance:
       objectReference: {fileID: 1763357843390052004, guid: 569d38eef0e3eaf4da1e440967b7f0a2, type: 2}
     - target: {fileID: 2958262986520364888, guid: 52571f68872914e24837210513edea1d, type: 3}
       propertyPath: m_fontColor32.rgba
-      value: 4281808695
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 2958262986520364888, guid: 52571f68872914e24837210513edea1d, type: 3}
       propertyPath: m_VerticalAlignment
@@ -2956,6 +2956,10 @@ PrefabInstance:
       propertyPath: runSelectedOptionAsLine
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8309902628685535410, guid: 52571f68872914e24837210513edea1d, type: 3}
+      propertyPath: 'dialoguePresenters.Array.data[1]'
+      value: 
+      objectReference: {fileID: 1795490162}
     - target: {fileID: 8790380584632356852, guid: 52571f68872914e24837210513edea1d, type: 3}
       propertyPath: m_Layer
       value: 5
@@ -2972,10 +2976,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8020628925107869960, guid: 52571f68872914e24837210513edea1d, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8020628925107869965, guid: 52571f68872914e24837210513edea1d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1795490162}
     - targetCorrespondingSourceObject: {fileID: 9078442560890639579, guid: 52571f68872914e24837210513edea1d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1964085054}
@@ -3002,6 +3010,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dd50f871a60b4bbe88a71d308b2613f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1795490160 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8020628925107869965, guid: 52571f68872914e24837210513edea1d, type: 3}
+  m_PrefabInstance: {fileID: 1795490157}
+  m_PrefabAsset: {fileID: 0}
+--- !u!225 &1795490161 stripped
+CanvasGroup:
+  m_CorrespondingSourceObject: {fileID: 8020628925107869969, guid: 52571f68872914e24837210513edea1d, type: 3}
+  m_PrefabInstance: {fileID: 1795490157}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1795490162
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1795490160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06fbf8bb2d18d9f4ab1b0b3ac2dfad35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CustomOptionsPresenter
+  canvasGroup: {fileID: 1795490161}
+  optionViewPrefab: {fileID: 1113940239189287728, guid: a7ee48ef9122c74499fac35afb81756e, type: 3}
+  optionViewParent: {fileID: 1299739672}
+  showUnavailableOptions: 0
+  useFadeEffect: 1
+  fadeUpDuration: 0.25
+  fadeDownDuration: 0.1
 --- !u!1 &1850328630
 GameObject:
   m_ObjectHideFlags: 0

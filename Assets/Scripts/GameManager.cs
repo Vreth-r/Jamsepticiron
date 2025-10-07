@@ -39,8 +39,8 @@ public class GameManager : MonoBehaviour
     [Header("Globals")]
     public string playerName;
     public Dictionary<string, int> endingVars;
-    private List<DialogueOption> activeOptions = new();
-    private bool optionSelected = false;
+    //private List<DialogueOption> activeOptions = new();
+    //private bool optionSelected = false;
     private Coroutine pauseRoutine;
 
     // Camera Movement vars
@@ -61,7 +61,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        dr.StartDialogue("StartNode");
+        dr.StartDialogue("newTestNode");
     }
 
     void Update()
@@ -137,6 +137,7 @@ public class GameManager : MonoBehaviour
         dr.StartDialogue(nodeName);
     }
 
+    /*
     [YarnCommand("DialogueOption")]
     public void SpawnOption(string displayText, string nextNode, float delay, float duration, string vertLocation, string horizontalLocation, string endingVarTarget = "Truth", int value = 0)
     {
@@ -159,7 +160,9 @@ public class GameManager : MonoBehaviour
         endingVars[endingVarTarget] += value;
         activeOptions.Add(option);
     }
+    */
 
+    /*
     [YarnCommand("WaitForOptions")]
     public IEnumerator WaitForOptions()
     {
@@ -168,7 +171,9 @@ public class GameManager : MonoBehaviour
         while (!optionSelected && activeOptions.Count > 0)
             yield return null;
     }
+    */
 
+    /*
     public void OnOptionClicked(string nextNode)
     {
         optionSelected = true;
@@ -187,7 +192,9 @@ public class GameManager : MonoBehaviour
         }
         dr.StartDialogue(nextNode);
     }
+    */
 
+    /*
     [YarnCommand("DialogueOptionSpecific")]
     public void SpawnOptionSpecific(string displayText, string nextNode, float delay, float duration, float x, float y, float z, string endingVarTarget = "Truth", int value = 0)
     {
@@ -197,6 +204,7 @@ public class GameManager : MonoBehaviour
         script.Setup(displayText, nextNode, delay, duration);
         endingVars[endingVarTarget] += value;
     }
+    */
 
     [YarnCommand("CameraInput")]
     public void CameraInput(bool value)
@@ -221,6 +229,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    /*
     [YarnCommand("BranchKillerTruth")]
     public void BranchKillerTruth(string displayText1, string nextNode1, float delay1, float duration1, string vertLocation1, string horizontalLocation1,
         string displayText2, string nextNode2, float delay2, float duration2, string vertLocation2, string horizontalLocation2)
@@ -234,6 +243,7 @@ public class GameManager : MonoBehaviour
             SpawnOption(displayText2, nextNode2, delay2, duration2, vertLocation2, horizontalLocation2);
         }
     }
+    */
 
     [YarnCommand("SetAdvanceDelay")]
     public void SetAdvanceDelay(float delay)
