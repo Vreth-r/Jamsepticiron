@@ -1,3 +1,4 @@
+/*
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
@@ -95,3 +96,4 @@ public class DialogueOption : MonoBehaviour
         Destroy(gameObject);
     }
 }
+*/
