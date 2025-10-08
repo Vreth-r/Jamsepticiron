@@ -17,6 +17,8 @@ public class CustomOptionsPresenter : DialoguePresenterBase
     [MustNotBeNull]
     [SerializeField] OptionItem? optionViewPrefab;
     public Transform? optionViewParent;
+    public float swayAmplitude = 0.0005f;
+    public float swaySpeed = 0.00001f;
 
     // A cached pool of OptionView objects so that we can reuse them
     List<OptionItem> optionViews = new List<OptionItem>();
@@ -40,8 +42,6 @@ public class CustomOptionsPresenter : DialoguePresenterBase
     [Group("Fade")]
     [ShowIf(nameof(useFadeEffect))]
     public float fadeDownDuration = 0.1f;
-
-    private const string TruncateLastLineMarkupName = "lastline";
 
     /// <summary>
     /// Called by a <see cref="DialogueRunner"/> to dismiss the options view
@@ -215,12 +215,31 @@ public class CustomOptionsPresenter : DialoguePresenterBase
             // ^ dont really need to do that because the option views are instantiated under a different canvas
         }
 
+        // ensure each canvas group starts invisible and not interactable.
         foreach (var view in optionViews)
         {
-            _ = HandleOptionLifecycleAsync(view, cancellationToken); // fire and forget each option
+            if (view != null)
+            {
+                view.gameObject.SetActive(false);
+                var cg = view.gameObject.GetComponent<CanvasGroup>();
+                if (cg != null)
+                {
+                    cg.alpha = 0f;
+                    cg.blocksRaycasts = false;
+                    cg.interactable = false;
+                }
+            }
+        }
+
+        // Start each option lifecycle in parallel, should run independently
+        foreach (var view in optionViews)
+        {
+            // Fire-and-forget the YarnTask; it will cancel when completionCancellationSource is cancelled
+            await ShowOptionAsync(view, completionCancellationSource.Token);
         }
 
         // allow interactivity and wait for an option to be selected
+        // this simply does not matter with the subparenting.
         /*
         if (canvasGroup != null)
         {
@@ -263,63 +282,146 @@ public class CustomOptionsPresenter : DialoguePresenterBase
         return completedTask;
     }
 
-    private async Task HandleOptionLifecycleAsync(OptionItem view, CancellationToken cancellationToken)
+    private async YarnTask ShowOptionAsync(OptionItem view, CancellationToken cancellationToken)
     {
+        if (view == null) return;
+
         try
         {
-            float delay = ParseValue<float>(view.Option.Line.Metadata[0]);
-            float duration = ParseValue<float>(view.Option.Line.Metadata[1]);
-            string vPos = ParseValue<string>(view.Option.Line.Metadata[2]);
-            string hPos = ParseValue<string>(view.Option.Line.Metadata[3]);
+            // --- 1) Read metadata safely ---
+            // metadata entries may not exist; treat them defensively
+            string[] meta = view.Option.Line.Metadata;
+            float delay = 0f;
+            float duration = 3f;
+            string vPos = "center";
+            string hPos = "center";
 
-            // Wait before showing
-            await Task.Delay(TimeSpan.FromSeconds(delay), cancellationToken);
-
-            // Position setup
-            RectTransform rect = view.gameObject.GetComponent<RectTransform>();
-            Vector2 anchoredPos = Vector2.zero;
-
-            // Basic position mapping – adjust as needed
-            switch (vPos.ToLower())
+            if (meta != null)
             {
-                case "top": anchoredPos.y = 85f; break;
-                case "middle": anchoredPos.y = 65f; break;
-                case "bottom": anchoredPos.y = 55f; break;
+                if (meta.Length > 0 && !string.IsNullOrEmpty(meta[0]))
+                {
+                    delay = ParseValue<float>(meta[0]);
+                }
+                if (meta.Length > 1 && !string.IsNullOrEmpty(meta[1]))
+                {
+                    duration = ParseValue<float>(meta[1]);
+                }
+                if (meta.Length > 2 && !string.IsNullOrEmpty(meta[2]))
+                {
+                    vPos = ParseValue<string>(meta[2]);
+                }
+                if (meta.Length > 3 && !string.IsNullOrEmpty(meta[3]))
+                {
+                    hPos = ParseValue<string>(meta[3]);
+                }
             }
-            switch (hPos.ToLower())
+
+            // --- 2) Position the option ---
+            // Map keywords to relative positions
+            float x;
+            float y;
+            switch (hPos.ToLowerInvariant())
             {
-                case "left": anchoredPos.x = -25f; break;
-                case "center": anchoredPos.x = 0f; break;
-                case "right": anchoredPos.x = 45f; break;
+                case "left": x = -65f; break;
+                case "center": x = 0f; break;
+                case "right": x = 65f; break;
+                default:
+                    x = 0f; break;
             }
 
-            rect.anchoredPosition = anchoredPos;
+            switch (vPos.ToLowerInvariant())
+            {
+                case "top": y = 15f; break;
+                case "center": y = 0f; break;
+                case "bottom": y = -20f; break;
+                default:
+                    y = 0f; break;
+            }
 
-            // Fade in
-            CanvasGroup group = view.gameObject.GetComponent<CanvasGroup>();
-            await Effects.FadeAlphaAsync(group, 0f, 1f, fadeUpDuration, cancellationToken);
 
-            // Wait for duration or cancellation
+            // set localPosition in world-space canvases (preserve z)
+            view.gameObject.transform.localPosition = new Vector3(x, y, 0f);
+            Vector3 position = new Vector3(x, y, 0f);
+
+            view.gameObject.SetActive(true);
+            // sway and camera facing
+            var cam = Camera.main;
+            float elapsed = 0f;
+
+            while (elapsed < duration && !cancellationToken.IsCancellationRequested)
+            {
+                elapsed += Time.deltaTime;
+
+                // face cam
+                view.gameObject.transform.LookAt(cam.transform);
+                //view.gameObject.transform.rotation = Quaternion.LookRotation(view.gameObject.transform.rotation - cam.transform.rotation);
+
+                float swayOffset = Mathf.Sin((Time.time + GetInstanceID() * 0.1f) * swaySpeed) * swayAmplitude;
+                view.gameObject.transform.localPosition = position + new Vector3(0f, swayOffset, 0f);
+
+                await YarnTask.Yield();
+            }
+
+            // --- 4) Fade in ---
+            var cg = view.gameObject.GetComponent<CanvasGroup>();
+            if (cg != null)
+            {
+                cg.alpha = 0f;
+                cg.blocksRaycasts = false;
+                cg.interactable = false;
+            }
+
+            // --- Wait the per-option delay ---
+            if (delay > 0f)
+            {
+                await YarnTask.Delay(TimeSpan.FromSeconds(delay), cancellationToken);
+            }
+            
+            if (cg != null)
+            {
+                await Effects.FadeAlphaAsync(cg, 0f, 1f, fadeUpDuration, cancellationToken);
+
+                // enable interaction only once fully visible
+                cg.blocksRaycasts = true;
+                cg.interactable = true;
+            }
+
+            // --- 5) Remain visible for duration (or until cancelled) ---
+            if (duration > 0f)
+            {
+                await YarnTask.Delay(TimeSpan.FromSeconds(duration), cancellationToken);
+            }
+
+            // --- 6) Fade out and cleanup ---
+            if (cg != null)
+            {
+                // disable interaction immediately so raycasts go through
+                cg.blocksRaycasts = false;
+                cg.interactable = false;
+
+                await Effects.FadeAlphaAsync(cg, 1f, 0f, fadeDownDuration, cancellationToken);
+            }
+
+            view.gameObject.SetActive(false);
+        }
+        catch (OperationCanceledException) // YarnTask.Delay -> throws if cancelled
+        {
+            // cancelled; ensure the option doesn't block anything
             try
             {
-                await Task.Delay(TimeSpan.FromSeconds(duration), cancellationToken);
+                var cg = view.gameObject.GetComponent<CanvasGroup>();
+                if (cg != null)
+                {
+                    cg.blocksRaycasts = false;
+                    cg.interactable = false;
+                }
+                view.gameObject.SetActive(false);
             }
-            catch (TaskCanceledException) { /* option skipped early */ }
-
-            // Fade out
-            await Effects.FadeAlphaAsync(group, 1f, 0f, fadeDownDuration, cancellationToken);
-
-            // Optional: disable raycast after fade-out
-            group.blocksRaycasts = false;
-            group.interactable = false;
-        }
-        catch (TaskCanceledException)
-        {
-            // Cancel gracefully — no exceptions in console spam
+            catch { }
         }
         catch (System.Exception ex)
         {
-            Debug.LogWarning($"Error handling dialogue option: {ex}");
+            Debug.LogError($"ShowOptionAsync error: {ex}");
         }
     }
 

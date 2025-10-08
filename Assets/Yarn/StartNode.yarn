@@ -2,12 +2,8 @@
 ---
 <<FadeIn "Game Manager" 1>>
 When does it all end?
-I have no idea.
-All I know is that I must continue moving forward.
-I... am not allowed... to stop.
-I will win, or die trying.
 
--> bro what the fuck are you saying #delay:1 #duration:3 #vPos:top #hPos:right
+-> bro what the fuck are you saying #delay:1 #duration:4 #vPos:top #hPos:right
     <<jump testBruh>>
 -> sounds like you need a drink. #delay:2 #duration:3 #vPos:bottom #hPos:left
     <<jump testDrink>>
