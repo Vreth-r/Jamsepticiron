@@ -1,25 +1,4 @@
-﻿title: newTestNode
----
-<<FadeIn "Game Manager" 1>>
-When does it all end?
-
--> bro what the fuck are you saying #delay:1 #duration:4 #vPos:top #hPos:right
-    <<jump testBruh>>
--> sounds like you need a drink. #delay:2 #duration:3 #vPos:bottom #hPos:left
-    <<jump testDrink>>
-===
-
-title: testBruh
----
-I dunno.
-===
-
-title: testDrink
----
-Yeah.
-===
-
-title: StartNode
+﻿title: StartNode
 ---
 <<FadeIn "Game Manager" 1>>
 <<PlayLoop "Game Manager" "CLOCK_TICK">>
@@ -37,18 +16,23 @@ title: StartNode
 <<wait 1>>
 <<CameraInput "Game Manager" true>>
 
-<<DialogueOption "Game Manager" "What is happening?" "explain" 0.5 8 "top" "L">>
-<<DialogueOption "Game Manager" "Where am I?" "explain" 2 7 "top" "R">>
+-> What is happening? #delay:0.5 #duration:8 #vPos:top #hPos:left
+    <<jump explain>>
+-> Where am I? #delay:2 #duration:7 #vPos:top #hPos:right
+    <<jump explain>>
 <<wait 13>>
+
 <<PlaySFX "Game Manager" "SPEAK_DEATH">>
 <<wait 0.5>>
 Speak.
 <<PlayAnim "Game Manager" "DeathHands" "impatient" true 2>>
-<<DialogueOption "Game Manager" "What is happening?" "explain" 0.5 9 "mid" "R">>
-<<DialogueOption "Game Manager" "Where am I?" "explain" 0.5 8 "top" "L">>
-<<Wait "form" 14>>
 
-<<stop>>
+-> What is happening? #delay:0.5 #duration:9 #vPos:center #hPos:right
+    <<jump explain>>
+-> Where am I? #delay:0.5 #duration:8 #vPos:top #hPos:left
+    <<jump explain>>
+<<wait 12>>
+<<jump explain>>
 ===
 
 title: testNode
