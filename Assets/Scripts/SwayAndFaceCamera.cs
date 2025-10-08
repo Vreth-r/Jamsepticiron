@@ -15,7 +15,7 @@ public class SwayAndFaceCamera : MonoBehaviour
     public Camera targetCamera;
 
     private Vector3 baseLocalPosition;
-    public bool enable = false;
+    public bool working = false;
 
     private void Awake()
     {
@@ -29,10 +29,10 @@ public class SwayAndFaceCamera : MonoBehaviour
     {
         baseLocalPosition = pos;
     }
-    
+
     private void Update()
     {
-        if (!enable) return;
+        if (!working) return;
         DoActions();
     }
 

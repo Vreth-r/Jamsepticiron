@@ -1,4 +1,32 @@
-﻿title: StartNode
+﻿title: Setup
+---
+<<declare $optionsTimer = 0>>
+===
+title: newTestNode
+---
+<<FadeIn "Game Manager" 1>>
+When does it all end?
+
+<<set $optionsTimer to 6>>
+-> bro what the fuck are you saying #delay:1 #duration:4 #vPos:top #hPos:right
+    <<jump testBruh>>
+-> sounds like you need a drink. #delay:2 #duration:3 #vPos:bottom #hPos:left
+    <<jump testDrink>>
+-> default
+    <<jump testBruh>>
+===
+
+title: testBruh
+---
+I dunno.
+===
+
+title: testDrink
+---
+Yeah.
+===
+
+title: StartNode
 ---
 <<FadeIn "Game Manager" 1>>
 <<PlayLoop "Game Manager" "CLOCK_TICK">>
@@ -16,44 +44,29 @@
 <<wait 1>>
 <<CameraInput "Game Manager" true>>
 
+<<set $optionsTimer to 10>>
 -> What is happening? #delay:0.5 #duration:8 #vPos:top #hPos:left
     <<jump explain>>
 -> Where am I? #delay:2 #duration:7 #vPos:top #hPos:right
     <<jump explain>>
-<<wait 13>>
+-> default
+    <<jump speak>>
+===
 
+title: speak
+---
 <<PlaySFX "Game Manager" "SPEAK_DEATH">>
 <<wait 0.5>>
 Speak.
 <<PlayAnim "Game Manager" "DeathHands" "impatient" true 2>>
 
+<<set $optionsTimer to 11>>
 -> What is happening? #delay:0.5 #duration:9 #vPos:center #hPos:right
     <<jump explain>>
 -> Where am I? #delay:0.5 #duration:8 #vPos:top #hPos:left
     <<jump explain>>
-<<wait 12>>
-<<jump explain>>
-===
-
-title: testNode
----
-
-<<ChangeFont "Game Manager" "death">>
-Hibbidy Hoo Blah.
-Wheres the freakin' gabagool?
-What the sigma!?
-AAAAAAAAAAAAAAAAAAA!
-<<DialogueOption "Game Manager" "Man fuck you." "testNode2" 0 3 "mid" "R">>
-
-<<stop>>
-===
-
-title: testNode2
----
-
-You're cooked cuh.
-
-<<stop>>
+-> default
+    <<jump explain>>
 ===
 
 title: explain
