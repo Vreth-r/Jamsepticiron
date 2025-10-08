@@ -61,7 +61,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        dr.StartDialogue("newTestNode");
+        dr.StartDialogue("StartNode");
     }
 
     void Update()
@@ -137,75 +137,6 @@ public class GameManager : MonoBehaviour
         dr.StartDialogue(nodeName);
     }
 
-    /*
-    [YarnCommand("DialogueOption")]
-    public void SpawnOption(string displayText, string nextNode, float delay, float duration, string vertLocation, string horizontalLocation, string endingVarTarget = "Truth", int value = 0)
-    {
-        float x = 0;
-        float y = 0;
-        float z = 0;
-        if (vertLocation == "top") { y = 85; }
-
-        if (vertLocation == "bot") { y = 55; }
-
-        if (vertLocation == "mid") { y = 65; }
-
-        if (horizontalLocation == "L") { x = -25; }
-
-        if (horizontalLocation == "R") { x = 45; }
-        Vector3 spawnPos = new Vector3(x, y, z);
-        var obj = Instantiate(dialogueOptionPrefab, spawnPos, Quaternion.identity, dialogueOptionParent);
-        var option = obj.GetComponent<DialogueOption>();
-        option.Setup(displayText, nextNode, delay, duration);
-        endingVars[endingVarTarget] += value;
-        activeOptions.Add(option);
-    }
-    */
-
-    /*
-    [YarnCommand("WaitForOptions")]
-    public IEnumerator WaitForOptions()
-    {
-        // Wait until an option is chosen or all options fade out
-        optionSelected = false;
-        while (!optionSelected && activeOptions.Count > 0)
-            yield return null;
-    }
-    */
-
-    /*
-    public void OnOptionClicked(string nextNode)
-    {
-        optionSelected = true;
-
-        // Fade out all others
-        foreach (var opt in activeOptions)
-            if (opt != null)
-                opt.FadeOutAndDestroy();
-
-        activeOptions.Clear();
-        if (pauseRoutine != null)
-        {
-            StopCoroutine(pauseRoutine);
-            pauseRoutine = null;
-            //Debug.Log("[PauseAndJump] Coroutine canceled.");
-        }
-        dr.StartDialogue(nextNode);
-    }
-    */
-
-    /*
-    [YarnCommand("DialogueOptionSpecific")]
-    public void SpawnOptionSpecific(string displayText, string nextNode, float delay, float duration, float x, float y, float z, string endingVarTarget = "Truth", int value = 0)
-    {
-        Vector3 spawnPos = new Vector3(x, y, z);
-        var opt = Instantiate(dialogueOptionPrefab, spawnPos, Quaternion.identity, dialogueOptionParent);
-        DialogueOption script = opt.GetComponent<DialogueOption>();
-        script.Setup(displayText, nextNode, delay, duration);
-        endingVars[endingVarTarget] += value;
-    }
-    */
-
     [YarnCommand("CameraInput")]
     public void CameraInput(bool value)
     {
@@ -228,22 +159,6 @@ public class GameManager : MonoBehaviour
             dr.StartDialogue("mediocrePerformanceEnding");
         }
     }
-
-    /*
-    [YarnCommand("BranchKillerTruth")]
-    public void BranchKillerTruth(string displayText1, string nextNode1, float delay1, float duration1, string vertLocation1, string horizontalLocation1,
-        string displayText2, string nextNode2, float delay2, float duration2, string vertLocation2, string horizontalLocation2)
-    {
-        if (endingVars["Killer"] >= endingVars["Truth"])
-        {
-            SpawnOption(displayText1, nextNode1, delay1, duration1, vertLocation1, horizontalLocation1);
-        }
-        if (endingVars["Truth"] >= endingVars["Killer"])
-        {
-            SpawnOption(displayText2, nextNode2, delay2, duration2, vertLocation2, horizontalLocation2);
-        }
-    }
-    */
 
     [YarnCommand("SetAdvanceDelay")]
     public void SetAdvanceDelay(float delay)
