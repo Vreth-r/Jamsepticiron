@@ -235,7 +235,7 @@ public class CustomOptionsPresenter : DialoguePresenterBase
         foreach (var view in optionViews)
         {
             // Fire-and-forget the YarnTask; it will cancel when completionCancellationSource is cancelled
-            await ShowOptionAsync(view, completionCancellationSource.Token);
+            _ = ShowOptionAsync(view, completionCancellationSource.Token);
         }
 
         // allow interactivity and wait for an option to be selected
@@ -353,7 +353,8 @@ public class CustomOptionsPresenter : DialoguePresenterBase
                 elapsed += Time.deltaTime;
 
                 // face cam
-                view.gameObject.transform.LookAt(cam.transform);
+                view.transform.LookAt(cam.transform);
+                view.transform.Rotate(0f, 180f, 0f);
                 //view.gameObject.transform.rotation = Quaternion.LookRotation(view.gameObject.transform.rotation - cam.transform.rotation);
 
                 float swayOffset = Mathf.Sin((Time.time + GetInstanceID() * 0.1f) * swaySpeed) * swayAmplitude;
@@ -379,26 +380,25 @@ public class CustomOptionsPresenter : DialoguePresenterBase
             
             if (cg != null)
             {
+                // Fade in
                 await Effects.FadeAlphaAsync(cg, 0f, 1f, fadeUpDuration, cancellationToken);
-
-                // enable interaction only once fully visible
                 cg.blocksRaycasts = true;
                 cg.interactable = true;
             }
 
-            // --- 5) Remain visible for duration (or until cancelled) ---
-            if (duration > 0f)
+            // Wait for the display duration or until selection/cancel
+            float timeVisible = 0f;
+            while (timeVisible < duration && !cancellationToken.IsCancellationRequested)
             {
-                await YarnTask.Delay(TimeSpan.FromSeconds(duration), cancellationToken);
+                timeVisible += Time.deltaTime;
+                await YarnTask.Yield();
             }
 
-            // --- 6) Fade out and cleanup ---
+            // Fade out
             if (cg != null)
             {
-                // disable interaction immediately so raycasts go through
                 cg.blocksRaycasts = false;
                 cg.interactable = false;
-
                 await Effects.FadeAlphaAsync(cg, 1f, 0f, fadeDownDuration, cancellationToken);
             }
 
