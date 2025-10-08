@@ -1,4 +1,35 @@
-﻿title: StartNode
+﻿title: Setup
+---
+<<declare $optionsTimer = 0>>
+<<declare $apathy = 0>>
+<<declare $truth = 0>>
+<<declare $killer = 0>>
+===
+title: newTestNode
+---
+<<FadeIn "Game Manager" 1>>
+When does it all end?
+
+<<set $optionsTimer to 6>>
+-> bro what the fuck are you saying #delay:1 #duration:4 #vPos:top #hPos:right
+    <<jump testBruh>>
+-> sounds like you need a drink. #delay:2 #duration:3 #vPos:bottom #hPos:left
+    <<jump testDrink>>
+-> default
+    <<jump testBruh>>
+===
+
+title: testBruh
+---
+I dunno.
+===
+
+title: testDrink
+---
+Yeah.
+===
+
+title: StartNode
 ---
 <<FadeIn "Game Manager" 1>>
 <<PlayLoop "Game Manager" "CLOCK_TICK">>
@@ -16,39 +47,29 @@
 <<wait 1>>
 <<CameraInput "Game Manager" true>>
 
-<<DialogueOption "Game Manager" "What is happening?" "explain" 0.5 8 "top" "L">>
-<<DialogueOption "Game Manager" "Where am I?" "explain" 2 7 "top" "R">>
-<<wait 13>>
+<<set $optionsTimer to 10>>
+-> What is happening? #delay:0.5 #duration:8 #vPos:top #hPos:left
+    <<jump explain>>
+-> Where am I? #delay:2 #duration:7 #vPos:top #hPos:right
+    <<jump explain>>
+-> default
+    <<jump speak>>
+===
+
+title: speak
+---
 <<PlaySFX "Game Manager" "SPEAK_DEATH">>
 <<wait 0.5>>
 Speak.
 <<PlayAnim "Game Manager" "DeathHands" "impatient" true 2>>
-<<DialogueOption "Game Manager" "What is happening?" "explain" 0.5 9 "mid" "R">>
-<<DialogueOption "Game Manager" "Where am I?" "explain" 0.5 8 "top" "L">>
-<<Wait "form" 14>>
 
-<<stop>>
-===
-
-title: testNode
----
-
-<<ChangeFont "Game Manager" "death">>
-Hibbidy Hoo Blah.
-Wheres the freakin' gabagool?
-What the sigma!?
-AAAAAAAAAAAAAAAAAAA!
-<<DialogueOption "Game Manager" "Man fuck you." "testNode2" 0 3 "mid" "R">>
-
-<<stop>>
-===
-
-title: testNode2
----
-
-You're cooked cuh.
-
-<<stop>>
+<<set $optionsTimer to 11>>
+-> What is happening? #delay:0.5 #duration:9 #vPos:center #hPos:right
+    <<jump explain>>
+-> Where am I? #delay:0.5 #duration:8 #vPos:top #hPos:left
+    <<jump explain>>
+-> default
+    <<jump explain>>
 ===
 
 title: explain
@@ -58,10 +79,14 @@ title: explain
 <<wait 0.5>>
 <<SetAdvanceDelay "Game Manager" 3>>
 You are at an interview, to see if you are a good fit.
-<<DialogueOption "Game Manager" "What if I'm not?" "whatIfImNot" 2 6 "top" "L">>
-<<DialogueOption "Game Manager" "A job? But I already have a job." "alreadyHaveAJob" 1 8 "top" "R">>
-<<Wait "form" 10>>
-<<stop>>
+
+<<set $optionsTimer to 10>>
+-> What if I'm not? #delay:2 #duration:6 #vPos:top #hPos:left
+    <<jump whatIfImNot>>
+-> A job? But I already have a job. #delay:1 #duration:8 #vPos:top #hPos:right
+    <<jump alreadyHaveAJob>>
+-> default 
+    <<jump form>>
 ===
 
 title: whatIfImNot
@@ -70,8 +95,8 @@ title: whatIfImNot
 <<wait 0.5>>
 <<SetAdvanceDelay "Game Manager" 1.5>>
 That would be a shame.
-<<Wait "form" 1>>
-<<stop>>
+<<wait 1>>
+<<jump form>>
 ===
 
 title: alreadyHaveAJob
@@ -80,8 +105,8 @@ title: alreadyHaveAJob
 <<wait 0.5>>
 <<SetAdvanceDelay "Game Manager" 1.5>>
 Not anymore.
-<<Wait "form" 1>>
-<<stop>>
+<<wait 1>>
+<<jump form>>
 ===
 
 title: form
@@ -92,11 +117,14 @@ title: form
 You have five minutes to fill this out,
 I suggest you tell the truth.
 <<wait 1>>
-<<DialogueOption "Game Manager" "What if I don't fill this out" "whatIfIDont" 2 6 "top" "R">>
-<<DialogueOption "Game Manager" "Who are you?" "whoAreYou" 3 3 "bot" "L">>
-<<Wait "strengths" 8>>
 
-<<stop>>
+<<set $optionsTimer to 9>>
+-> What if I don't fill this out? #delay:2 #duration:6 #vPos:top #hPos:right
+    <<jump whatIfIDont>>
+-> Who are you? #delay:3 #duration:3 #vPos:bottom #hPos:left
+    <<jump whoAreYou>>
+-> default
+    <<jump strengths>>
 ===
 
 title: whatIfIDont
@@ -106,8 +134,8 @@ title: whatIfIDont
 <<wait 0.5>>
 <<SetAdvanceDelay "Game Manager" 3>>
 Then the page stays empty.
-<<Wait "strengths" 1>>
-<<stop>>
+<<wait 1>>
+<<jump strengths>>
 ===
 
 title: whoAreYou
@@ -117,8 +145,8 @@ title: whoAreYou
 <<wait 0.5>>
 <<SetAdvanceDelay "Game Manager" 2.5>>
 That's not important.
-<<Wait "strengths" 1>>
-<<stop>>
+<<wait 1>>
+<<jump strengths>>
 ===
 
 title: strengths
@@ -127,15 +155,20 @@ title: strengths
 <<wait 0.5>>
 <<SetAdvanceDelay "Game Manager" 3>>
 So, what's your greatest strength?
-<<DialogueOption "Game Manager" "I'm great at washing the dishes." "unsuccessful" 0.5 8 "top" "R">>
-<<DialogueOption "Game Manager" "I don't have any and don't want any." "unsuccessful" 1 9 "top" "L" "Apathy" 1>> // apathy + 1
-<<DialogueOption "Game Manager" "I am a team player." "unsuccessful" 0.5 8 "bot" "R">> 
-<<DialogueOption "Game Manager" "I am really good at customer service." "unsuccessful" 3 2 "bot" "L">>
-<<wait 7>>
 <<PlayAnim "Game Manager" "DeathHands" "writing" true 2>>
-<<Wait "unsuccessful" 4>>
 
-<<stop>>
+<<set $optionsTimer to 12>>
+-> I'm great at washing the dishes. #delay:0.5 #duration:8 #vPos:top #hPos:right
+    <<jump unsuccessful>>
+-> I don't have any and don't want any. #delay:1 #duration:9 #vPos:top #hPos:left // apathy + 1
+    <<set $apathy to $apathy + 1>>
+    <<jump unsuccessful>>
+-> I am a team player. #delay:0.5 #duration:8 #vPos:bottom #hPos:right
+    <<jump unsuccessful>>
+-> I am really good at customer service. #delay:3 #duration:2 #vPos:bottom #hPos:left
+    <<jump unsuccessful>>
+-> default
+    <<jump unsuccessful>>
 ===
 
 title: unsuccessful
@@ -145,19 +178,26 @@ title: unsuccessful
 <<wait 0.5>>
 <<SetAdvanceDelay "Game Manager" 3>>
 Why were you unsuccessful?
-
-<<DialogueOption "Game Manager" "Nuh uh, I'm super successful." "humanLife" 1.5 6 "top" "L">>
-<<DialogueOption "Game Manager" "I suck at life, probably." "humanLife" 0 5.5 "top" "R">> 
-<<DialogueOption "Game Manager" "I didn't have enough friends" "noFriends" 2 6 "bot" "L">>
-
-<<DialogueOption "Game Manager" "Don't know, don't care" "humanLife" 1.3 5.7 "bot" "R" "Apathy" 1>> // apathy + 1
-<<DialogueOption "Game Manager" "I could've been better to the people who loved me..." "humanLife" 9 6 "mid" "L" "Truth" 1>> // truth + 1
-<<DialogueOption "Game Manager" "I didn't plan far enough ahead." "humanLife" 10 7 "mid" "R" "Killer" 1>> // serial killer + 1
-<<wait 7>>
 <<PlayAnim "Game Manager" "DeathHands" "writing" true 2>>
-<<Wait "humanLife" 14>>
 
-<<stop>>
+<<set $optionsTimer to 21>>
+-> Nuh uh, I'm super successful. #delay:1.5 #duration:6 #vPos:top #hPos:left
+    <<jump humanLife>>
+-> I suck at life, probably. #delay:0 #duration:5.5 #vPos:top #hPos:right
+    <<jump humanLife>>
+-> I didn't have enough friends. #delay:2 #duration:6 #vPos:bottom #hPos:left
+    <<jump noFriends>>
+-> Don't know, don't care. #delay:1.3 #duration:5.7 #vPos:bottom #hPos:right // apathy + 1
+    <<set $apathy to $apathy + 1>>
+    <<jump humanLife>>
+-> I could've been better to the people who loved me... #delay:9 #duration:6 #vPos:center #hPos:left // truth + 1
+    <<set $truth to $truth + 1>>
+    <<jump humanLife>>
+-> I didn't plan far enough ahead. #delay:10 #duration:7 #vPos:center #hPos:right // killer + 1
+    <<set $killer to $killer + 1>>
+    <<jump humanLife>>
+-> default
+    <<jump humanLife>>
 ===
 
 title: noFriends
@@ -168,28 +208,32 @@ title: noFriends
 <<SetAdvanceDelay "Game Manager" 2>>
 Elaborate.
 <<PlayAnim "Game Manager" "DeathHands" "writing" true 4>>
+
+<<set $optionsTimer to 20>>
 // topL
-<<DialogueOption "Game Manager" "I don't know, but it's expected, right?" "humanLife" 0 6 "top" "L" "Apathy" 1>> // apathy + 1
-
+-> I don't know, but it's expected, right?. #delay:0 #duration:6 #vPos:top #hPos:left // apathy 1
+    <<set $apathy to $apathy + 1>>
+    <<jump humanLife>>
 //topR
-<<DialogueOption "Game Manager" "Being a working adult is lonely, man." "humanLife" 1.5 6 "top" "R">>
-<<DialogueOption "Game Manager" "I could've had more connections" "humanLife" 10.5 6 "top" "R">> 
-
+-> Being a working adult is lonely, man. #delay:1.5 #duration:6 #vPos:top #hPos:right
+    <<jump humanLife>>
+-> I could've had more connections. #delay:10.5 #duration:6 #vPos:top #hPos:right
+    <<jump humanLife>>
 //botL
-<<DialogueOption "Game Manager" "I had a lot, but I didn't treasure them." "humanLife" 2 6 "bot" "L" "Truth" 1>> // truth + 1
-
+-> I had a lot, but I didn't treasure them. #delay:2 #duration:6 #vPos:bottom #hPos:left // truth 1
+    <<set $truth to $truth + 1>>
+    <<jump humanLife>>
 //midL
-<<DialogueOption "Game Manager" "It's easier to get away with things" "humanLife" 11 6 "mid" "L" "Killer" 1>> // serial killer + 1
-
+-> It's easier to get away with things. #delay:11 #duration:6 #vPos:center #hPos:left // killer 1
+    <<set $killer to $killer + 1>>
+    <<jump humanLife>>
 //botR
-<<DialogueOption "Game Manager" "I think friends are cool." "humanLife" 0.5 6 "bot" "R">>
-<<DialogueOption "Game Manager" "I think I missed out" "humanLife" 9.5 6 "bot" "R">>
-<<wait 5>>
-<<PlayAnim "Game Manager" "DeathHands" "pen tap" true 2>>
-<<PlayAnim "Game Manager" "DeathHands" "writing" true 4>>
-<<Wait "humanLife" 14>>
-
-<<stop>>
+-> I think friends are cool. #delay:0.5 #duration:6 #vPos:bottom #hPos:right
+    <<jump humanLife>>
+-> I think I missed out. #delay:9.5 #duration:6 #vPos:bottom #hPos:right
+    <<jump humanLife>>
+-> default
+    <<jump humanLife>>
 ===
 
 title: humanLife
@@ -200,25 +244,36 @@ title: humanLife
 <<SetAdvanceDelay "Game Manager" 5>>
 What is the value of a human life?
 
+<<set $optionsTimer to 15>>
 // topL
-<<DialogueOption "Game Manager" "Their net worth!" "hell" 0 3 "top" "L">>
-<<DialogueOption "Game Manager" "It's too large to measure." "hell" 5 4 "Truth" 2>> // truth + 2
+-> Their net worth!. #delay:0 #duration:3 #vPos:top #hPos:left
+    <<jump hell>>
+-> It's too large to measure. #delay:5 #duration:4 #vPos:top #hPos:left // truth 2
+    <<set $truth to $truth + 2>>
+    <<jump hell>>
 //topR
-<<DialogueOption "Game Manager" "Isn't that your job to determine?" "hell" 0.5 3 "top" "R">>
+-> Isn't that you job to determine?. #delay:0.5 #duration:3 #vPos:top #hPos:right
+    <<jump hell>>
 //botL
-<<DialogueOption "Game Manager" "How much people cry when they're gone" "hell" 0 3 "bot" "L" "Killer" 1>> // serial killer + 1
+-> How much people cry when they're gone. #delay:0 #duration:3 #vPos:bottom #hPos:left // killer 1
+    <<set $killer to $killer + 1>>
+    <<jump hell>>
 //botR
-<<DialogueOption "Game Manager" "The amount of good deeds they've done." "hell" 0.5 3 "bot" "R">>
+-> The amount of good deeds they've done. #delay:0.5 #duration:3 #vPos:bottom #hPos:right
+    <<jump hell>>
 //midL
-<<DialogueOption "Game Manager" "How happy they've made other people." "hell" 3.5 3 "mid" "L" "Truth" 1>> // truth + 1
+-> How happy they've made other people. #delay:3.5 #duration:3 #vPos:center #hPos:left // truth 1
+    <<set $truth to $truth + 1>>
+    <<jump hell>>
 //midR
-<<DialogueOption "Game Manager" "Nothing, humans are worthless." "hell" 4 3 "mid" "R" "Apathy" 1>> // apathy + 1
-<<DialogueOption "Game Manager" "Did they have life insurance?" "hell" 7 2 "mid" "R" "Killer" 1>> // serial killer + 1
-<<wait 4>>
-<<PlayAnim "Game Manager" "DeathHands" "impatient" true 2>>
-<<Wait "hell" 10>>
-
-<<stop>>
+-> Nothing, humans are worthless. #delay:4 #duration:3 #vPos:center #hPos:right // apathy 1
+    <<set $apathy to $apathy + 1>>
+    <<jump hell>>
+-> Did they have life insurance? #delay:7 #duration:2 #vPos:center #hPos:right // killer 1
+    <<set $killer to $killer + 1>>
+    <<jump hell>>
+-> default
+    <<jump hell>>
 ===
 
 title: hell
@@ -229,23 +284,30 @@ title: hell
 <<SetAdvanceDelay "Game Manager" 6>>
 If you were told you were going to hell, how would you feel?
 
+<<set $optionsTimer to 15>>
 //topL
-<<DialogueOption "Game Manager" "-What?" "pointCalc" 0 9 "top" "L">>
+-> -What?. #delay:0 #duration:9 #vPos:top #hPos:left
+    <<jump pointCalc>>
 //topR
-<<DialogueOption "Game Manager" "Am I?" "pointCalc" 1 3 "top" "R">>
+-> Am I? #delay:1 #duration:3 #vPos:top #hPos:right
+    <<jump pointCalc>>
 //botL
-<<DialogueOption "Game Manager" "Pretty scared, I think?" "pointCalc" 2 3 "bot" "L">>
+-> Pretty scared, I think? #delay:2 #duration:3 #vPos:bottom #hPos:left
+    <<jump pointCalc>>
 //botR
-<<DialogueOption "Game Manager" "Doesn't matter." "pointCalc" 1.5 3 "bot" "R" "Apathy" 1>> // apathy + 1
+-> Doesn't matter. #delay:1.5 #duration:3 #vPos:bottom #hPos:right // apathy 1
+    <<set $apathy to $apathy + 1>>
+    <<jump pointCalc>>
 //midL
-<<DialogueOption "Game Manager" "It would be worth it." "pointCalc" 4.5 3 "mid" "L" "Killer" 1>> // serial killer + 1
+-> It would be worth it. #delay:4.5 #duration:3 #vPos:center #hPos:left // killer 1
+    <<set $killer to $killer + 1>>
+    <<jump pointCalc>>
 //midR
-<<DialogueOption "Game Manager" "I would understand" "wouldUnderstand" 4.5 3 "mid" "R" "Truth" 1>> // truth + 1
-<<wait 5>>
-<<PlayAnim "Game Manager" "DeathHands" "impatient" true 2>>
-<<Wait "pointCalc" 10>>
-
-<<stop>>
+-> I would understand. #delay:4.5 #duration:3 #vPos:center #hPos:right // truth 1
+    <<set $truth to $truth + 1>>
+    <<jump wouldUnderstand>>
+-> default
+    <<jump pointCalc>>
 ===
 
 title: wouldUnderstand
@@ -255,12 +317,18 @@ title: wouldUnderstand
 <<wait 0.5>>
 <<SetAdvanceDelay "Game Manager" 3>>
 Do you regret your life?
-<<DialogueOption "Game Manager" "Yes, all of it." "pointCalc" 0 3 "top" "R">>
-<<DialogueOption "Game Manager" "No, but I regret the hurt I inflicted." "pointCalc" 3 3 "mid" "R" "Truth" 1>> // truth + 1
-<<DialogueOption "Game Manager" "No, I regret nothing." "pointCalc" 3 3 "mid" "L" "Killer" 1>> // serial killer + 1
-<<Wait "pointCalc" 8>>
 
-<<stop>>
+<<set $optionsTimer to 8>>
+-> Yes, all of it. #delay:0 #duration:3 #vPos:top #hPos:right
+    <<jump pointCalc>>
+-> No, but I regret the hurt I inflicted. #delay:3 #duration:3 #vPos:center #hPos:right
+    <<set $truth to $truth + 1>>
+    <<jump pointCalc>>
+-> No, I regret nothing. #delay:3 #duration:3 #vPos:center #hPos:left
+    <<set $killer to $killer + 1>>
+    <<jump pointCalc>>
+-> default
+    <<jump pointCalc>>
 ===
 
 title: pointCalc
@@ -278,9 +346,16 @@ title: pointCalc
 //<<jump rememberThem>>
 //If they don't fit these criteriums, they just go to hell.
 //<<jump mediocrePerformanceEnding>>
-<<BranchApathy "Game Manager">>
+...
+<<if $apathy == 4>>
+    <<jump apathyEnding>>
+<<endif>>
 
-<<stop>>
+<<if $apathy <= 1>>
+    <<jump rememberThem>>
+<<endif>>
+
+<<jump mediocrePerformanceEnding>>
 ===
 
 title: rememberThem
@@ -290,21 +365,24 @@ title: rememberThem
 <<SetAdvanceDelay "Game Manager" 3>>
 Do you remember them?
 
-<<DialogueOption "Game Manager" "Yes." "yesIRemember" 0 3 "top" "L">>
-<<DialogueOption "Game Manager" "No." "noIForgor" 0 3 "top" "R">>
-<<Wait "noIForgor" 5>>
-
-<<stop>>
+<<set $optionsTimer to 5>>
+-> Yes. #delay:0 #duration:3 #vPos:top #hPos:left
+    <<jump yesIRemember>>
+-> No. #delay:0 #duration:3 #vPos:top #hPos:right
+    <<jump noIForgor>>
+-> default
+    <<jump dontWantRemember>>
 ===
 
 title: yesIRemember
 ---
-
-<<DialogueOption "Game Manager" "How could I not?" "confessionCalc" 0 3 "top" "L">>
-<<DialogueOption "Game Manager" "I don't want to remember..." "dontWantRemember" 2 3 "bot" "R">>
-<<Wait "dontWantRemember" 6>>
-
-<<stop>>
+<<set $optionsTimer to 6>>
+-> How could I not? #delay:0 #duration:3 #vPos:top #hPos:left
+    <<jump confessionCalc>>
+-> I don't want to remember... #delay:2 #duration:3 #vPos:bottom #hPos:right
+    <<jump dontWantRemember>>
+-> default
+    <<jump dontWantRemember>>
 ===
 
 title: noIForgor
@@ -315,12 +393,16 @@ title: noIForgor
 <<SetAdvanceDelay "Game Manager" 3>>
 Are you certain?
 
-<<DialogueOption "Game Manager" "Yes, I'm sure." "mediocrePerformanceEnding" 0 3 "top" "R">>
-<<DialogueOption "Game Manager" "I remember their screams." "confessionCalc" 3 3 "top" "L">> // serial killer + 1
-<<DialogueOption "Game Manager" "I don't want to remember..." "dontWantRemember" 2 3 "bot" "R">>
-<<Wait "dontWantRemember" 7>>
-
-<<stop>>
+<<set $optionsTimer to 7>>
+-> Yes, I'm sure. #delay:0 #duration:3 #vPos:top #hPos:right
+    <<jump mediocrePerformanceEnding>>
+-> I remember their screams. #delay:3 #duration:3 #vPos:top #hPos:left // killer 1
+    <<set $killer to $killer + 1>>
+    <<jump confessionCalc>>
+-> I dont want to remember... #delay:2 #duration:3 #vPos:bottom #hPos:right
+    <<jump dontWantRemember>>
+-> default
+    <<jump dontWantRemember>>
 ===
 
 title: confessionCalc
@@ -329,16 +411,18 @@ title: confessionCalc
 //See which number is bigger, serial killer or truth.
 //If the player has a clear winner in points, jump to the appropriate one.
 //If it is tied, show them both.
-
+<<set $optionsTimer to 60>>
 // truth 
-//<<DialogueOption "Game Manager" "They were my greatest regrets." "truthConfession" 0 3 "mid" "L">>
+<<DialogueOption "Game Manager" "They were my greatest regrets." "truthConfession" 0 3 "mid" "L">>
+-> They were my greatest regrets. <<if $truth >= $killer>> #delay:0 #duration:5 #vPos:center #hPos:left
+    <<jump truthConfession>>
 
 // serial killer
 //<<DialogueOption "Game Manager" "I chose them to send to you." "serialKillerConfession" 0 3 "mid" "R">>
-<<BranchKillerTruth "Game Manager" "I chose them to send to you." "serialKillerConfession" 0 6 "mid" "R" "They were my greatest regrets." "truthConfession" 0 6 "mid" "L">>
-<<Wait "mediocrePerformanceEnding" 7>>
-
-<<stop>>
+-> I chose them to send to you. <<if $killer >= $truth>> #delay:0 #duration:5 #vPos:center #hPos:right
+    <<jump serialKillerConfession>>
+-> default
+    <<jump serialKillerConfession>>
 ===
 
 title: dontWantRemember
@@ -348,11 +432,14 @@ title: dontWantRemember
 <<ChangeFont "Game Manager" "player">>
 player: But I... do remember. 
 
-<<DialogueOption "Game Manager" "Please don't make me..." "mediocrePerformanceEnding" 0 6 "mid" "L">>
-<<DialogueOption "Game Manager" "It's the right thing to do." "pointCalc" 3 3 "mid" "R" "Truth" 1>> // truth + 1
-<<Wait "mediocrePerformanceEnding" 8>>
-
-<<stop>>
+<<set $optionsTimer to 8>>
+-> Please don't make me... #delay:0 #duration:6 #vPos:center #hPos:left
+    <<jump mediocrePerformanceEnding>>
+-> It's the right thing to do. #delay:3 #duration:3 #vPos:center #hPos:right
+    <<set $truth to $truth + 1>>
+    <<jump confessionCalc>>
+-> default
+    <<jump mediocrePerformanceEnding>>
 ===
 
 title: truthConfession
@@ -372,10 +459,11 @@ player: whether I've earned forgiveness is not up to me to decide.
 player: ...
 player: Nor you, for that matter.
 
-<<DialogueOption "Game Manager" "But I hope you can accept my application." "deathFunnie" 0 3 "bot" "R">>
-<<Wait "trueEndingP1" 5>>
-
-<<stop>>
+<<set $optionsTimer to 4>>
+-> But I hope you can accept my application #delay:0 #duration:3 #vPos:bottom #hPos:right
+    <<jump deathFunnie>>
+-> default 
+    <<jump trueEndingP1>>
 ===
 
 title: deathFunnie
@@ -388,9 +476,7 @@ player: I think being tortured by immortality would hurt less than seeing the pe
 <<wait 0.5>>
 <<SetAdvanceDelay "Game Manager" 3>>
 HA!!
-<<Wait "trueEndingP1" 1>>
-
-<<stop>>
+<<jump trueEndingP1>>
 ===
 
 title: trueEndingP1
@@ -412,21 +498,21 @@ You will listen.
 <<PlaySFX "Game Manager" "REMEMBER_DEATH">>
 <<wait 0.5>>
 <<SetAdvanceDelay "Game Manager" 3>>
-You will remember. 
+You will remember.
 
-<<DialogueOptionSpecific "Game Manager" "And I will feel... everything." "trueEndingP2" 0 3 0 0 -30>>
-<<Wait "trueEndingP2" 4>>
-
-<<stop>>
+<<set $optionsTimer to 60>>
+-> And I will feel... everything #delay:0 #duration:3 #vPos:center #hPos:center
+    <<jump trueEndingP2>>
+-> default
+    <<jump trueEndingP2>>
 ===
 
 title: trueEndingP2
 ---
-
+...
+<<wait 1>>
 <<PlayAnim "Game Manager" "DeathHands" "shake hands" true>>
-
-
-<<stop>>
+<<FadeOut "Game Manager" 1>>
 ===
 
 title: mediocrePerformanceEnding
@@ -446,7 +532,7 @@ thank you for your time.
 <<wait 0.5>>
 <<SetAdvanceDelay "Game Manager" 7>>
 I'd tell you to enjoy what comes next, but... you won't.
-<<stop>>
+<<FadeToScene "Game Manager" "hell-fall">>
 ===
 
 title: apathyEnding
@@ -456,6 +542,7 @@ title: apathyEnding
 <<PlaySFX "Game Manager" "APATHY_ENDING_MONOLOGUE_DEATH">>
 <<wait 0.5>>
 <<SetAdvanceDelay "Game Manager" 2>>
+// have to manually set advance delays later
 I was like you once. 
 So dismissive of your own existence. 
 Doesn't it get tiring?
@@ -468,8 +555,8 @@ let me give you a feeling worth screaming for.
 
 <<PlayAnim "Game Manager" "DeathHands" "rotting hands" true >>
 
-
-<<stop>>
+<<wait 10>>
+<<FadeOut "Game Manager" 3>>
 ===
 
 title: serialKillerConfession
@@ -496,13 +583,12 @@ player: I did this for you...
 Do you think you're special?
 <<wait 1>>
 You deserve this.
-<<Wait "serialKillerEnding" 3>>
-<<stop>>
+<<wait 3>>
+<<jump serialKillerEnding>>
 ===
 
 title: serialKillerEnding
 ---
 <<FadeToScene "Game Manager" "Snowy">>
 // scene transition
-<<stop>>
 ===
